@@ -34,6 +34,9 @@ class ProductDescription implements ModelInterface
         return $this->value;
     }
 
+    /**
+     * @inheritdoc
+     */
     public function __toString()
     {
         return $this->getValue();
