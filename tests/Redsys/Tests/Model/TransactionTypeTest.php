@@ -13,11 +13,41 @@ use Redsys\Model\TransactionType;
 
 class TransactionTypeTest extends \PHPUnit_Framework_TestCase
 {
-    public function testGetValueShouldReturnValue()
+    /**
+     * @dataProvider availableTypes
+     */
+    public function testGetValueShouldReturnValue($value)
     {
-        $transactionType = new TransactionType("0");
+        $transactionType = new TransactionType($value);
 
-        $this->assertEquals("0", $transactionType->getValue());
+        $this->assertEquals($value, $transactionType->getValue());
+    }
+
+    public function availableTypes()
+    {
+        return array(
+            array(0),
+            array(1),
+            array(2),
+            array(3),
+            array(5),
+            array(6),
+            array(7),
+            array(8),
+            array(9),
+            array("O"),
+            array("P"),
+            array("Q"),
+            array("R"),
+            array("S")
+        );
+    }
+
+    public function testAvailableTypesShouldReturnArray()
+    {
+        $this->assertEquals(array(
+            0, 1, 2, 3, 5, 6, 7, 8, 9, "O", "P", "Q", "R", "S"
+        ), TransactionType::availableTypes());
     }
 
     public function testToStringShouldReturnStringValue()
@@ -33,5 +63,30 @@ class TransactionTypeTest extends \PHPUnit_Framework_TestCase
     public function testTooLongValueShouldThrowException()
     {
         new TransactionType("ab");
+    }
+
+    /**
+     * @dataProvider unexpectedValues
+     * @expectedException \UnexpectedValueException
+     * @param mixed $value
+     */
+    public function testUnexpectedValueShouldReturnException($value)
+    {
+        new TransactionType($value);
+    }
+
+    public function unexpectedValues()
+    {
+        return array(
+            array("4"),
+            array("T"),
+        );
+    }
+
+    public function testCorrectLowerCaseTypesShouldBeAccepted()
+    {
+        $transactionType = new TransactionType("p");
+
+        $this->assertEquals("P", $transactionType->getValue());
     }
 }
