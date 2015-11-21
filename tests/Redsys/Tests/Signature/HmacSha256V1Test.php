@@ -60,4 +60,28 @@ class HmacSha256V1Test extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals($parameters, $signature->decode($encoded));
     }
+
+    public function testEncodeShouldReturnSameResultWithDifferentSecretKeys()
+    {
+        $parameters = $this->getParameters();
+        $signatureA = new HmacSha256V1();
+        $signatureB = new HmacSha256V1("loremipsum");
+
+        $this->assertEquals(
+            $signatureA->encode($parameters),
+            $signatureB->encode($parameters)
+        );
+    }
+
+    public function testDecodeShouldReturnSameResultWithDifferentSecretKeys()
+    {
+        $encoded = $this->rawEncode($this->getParameters());
+        $signatureA = new HmacSha256V1();
+        $signatureB = new HmacSha256V1("loremipsum");
+
+        $this->assertEquals(
+            $signatureA->decode($encoded),
+            $signatureB->decode($encoded)
+        );
+    }
 }
