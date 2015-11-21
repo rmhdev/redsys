@@ -19,6 +19,11 @@ final class CardCountry implements ModelInterface
      */
     private $value;
 
+    /**
+     * CardCountry constructor.
+     * @param string $value  ISO 3166-1 numeric value
+     * @url https://en.wikipedia.org/wiki/ISO_3166-1_numeric
+     */
     public function __construct($value)
     {
         if (!is_numeric($value)) {
