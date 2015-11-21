@@ -24,9 +24,35 @@ class MerchantCodeTest extends \PHPUnit_Framework_TestCase
 
     public function testToStringShouldReturnStringValue()
     {
-        $code = "qwertyuio";
+        $code = "abcdefghi";
         $merchantCode = new MerchantCode($code);
 
         $this->assertEquals($code, (string)$merchantCode);
+    }
+
+    /**
+     * @dataProvider merchantCodes
+     */
+    public function testMerchantCodeShouldCleanReceivedCode($expected, $code)
+    {
+        $merchantCode = new MerchantCode($code);
+
+        $this->assertEquals($expected, (string)$merchantCode);
+    }
+
+    public function merchantCodes()
+    {
+        return array(
+            array("123456789", "123 456 789"),
+            array("123456789", "\t123456789\n"),
+        );
+    }
+
+    /**
+     * @expectedException \LengthException
+     */
+    public function testTooLongCodeShouldThrowException()
+    {
+        new MerchantCode("1234567890");
     }
 }
