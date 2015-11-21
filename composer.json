@@ -1,0 +1,32 @@
+{
+  "name": "rmhdev/redsys",
+  "description": "Library for working with tpv",
+  "type": "library",
+  "minimum-stability": "dev",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Rober Martín H",
+      "email": "rmh.dev@gmail.com"
+    }
+  ],
+  "require": {
+    "php": ">=5.3.3"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "~4.5"
+  },
+  "autoload": {
+    "psr-4": {
+      "Redsys\\": "src/Redsys"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Redsys\\Tests\\": "tests/Redsys"
+    }
+  },
+  "scripts": {
+    "test": "phpunit"
+  }
+}
