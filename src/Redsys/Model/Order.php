@@ -11,6 +11,8 @@ namespace Redsys\Model;
 
 class Order implements ModelInterface
 {
+    const MAX_LENGTH = 12;
+
     private $value;
 
     /**
@@ -20,6 +22,12 @@ class Order implements ModelInterface
     public function __construct($value)
     {
         $value = str_replace(" ", "", trim($value));
+        $length = strlen($value);
+        if (self::MAX_LENGTH < $length) {
+            throw new \LengthException(
+                sprintf('Code "%s" is too long (%d), max is %d', $value, $length, self::MAX_LENGTH)
+            );
+        }
         $this->value = (string)$value;
     }
 

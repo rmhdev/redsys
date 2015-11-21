@@ -45,4 +45,12 @@ class OrderTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals("4567890", (string)$order);
     }
+
+    /**
+     * @expectedException \LengthException
+     */
+    public function testTooLongCodeShouldThrowException()
+    {
+        new Order("1234567890123");
+    }
 }
