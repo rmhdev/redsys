@@ -9,7 +9,7 @@
 
 namespace Redsys\Model;
 
-class ConsumerLanguage
+class ConsumerLanguage implements ModelInterface
 {
     const ES = "001";
     const EN = "002";
