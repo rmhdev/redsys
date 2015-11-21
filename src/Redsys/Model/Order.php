@@ -28,6 +28,9 @@ class Order implements ModelInterface
                 sprintf('Code "%s" is too long (%d), max is %d', $value, $length, self::MAX_LENGTH)
             );
         }
+        if (preg_match('/(\d{4})([a-zA-Z0-9]+$)/', $value) !== 1) {
+            throw new \UnexpectedValueException(sprintf('Order value "%s" is incorrect', $value));
+        }
         $this->value = (string)$value;
     }
 

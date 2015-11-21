@@ -14,11 +14,22 @@ use Redsys\Model\Order;
 
 class OrderTest extends \PHPUnit_Framework_TestCase
 {
-    public function testGetValueShouldReturnStringValue()
+    /**
+     * @dataProvider validValues
+     */
+    public function testGetValueShouldReturnStringValue($value)
     {
-        $order = new Order("1234aBc123");
+        $order = new Order($value);
 
-        $this->assertEquals("1234aBc123", $order->getValue());
+        $this->assertEquals($value, $order->getValue());
+    }
+
+    public function validValues()
+    {
+        return array(
+            array("1234aBc123"),
+            //array("1234"),
+        );
     }
 
     /**
@@ -52,5 +63,23 @@ class OrderTest extends \PHPUnit_Framework_TestCase
     public function testTooLongCodeShouldThrowException()
     {
         new Order("1234567890123");
+    }
+
+    /**
+     * @dataProvider invalidValues
+     * @expectedException \UnexpectedValueException
+     */
+    public function testNonNumericFirstPartOfValueShouldThrowException($value)
+    {
+        new Order($value);
+    }
+
+    public function invalidValues()
+    {
+        return array(
+            array("a123aaaaaa"),
+            array("123a3aaaa"),
+            array("1232aaañaa"),
+        );
     }
 }
