@@ -33,7 +33,7 @@ final class MerchantCode implements ModelInterface
     /**
      * @return string
      */
-    public function getCode()
+    public function getValue()
     {
         return $this->code;
     }
@@ -43,6 +43,6 @@ final class MerchantCode implements ModelInterface
      */
     public function __toString()
     {
-        return $this->getCode();
+        return $this->getValue();
     }
 }

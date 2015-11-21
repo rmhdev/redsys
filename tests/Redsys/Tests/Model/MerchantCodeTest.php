@@ -14,20 +14,12 @@ use Redsys\Model\MerchantCode;
 
 class MerchantCodeTest extends \PHPUnit_Framework_TestCase
 {
-    public function testGetCodeShouldReturnStringValue()
+    public function testGetValueShouldReturnStringValue()
     {
         $code = "qwertyuio";
         $merchantCode = new MerchantCode($code);
 
-        $this->assertEquals($code, $merchantCode->getCode());
-    }
-
-    public function testToStringShouldReturnStringValue()
-    {
-        $code = "abcdefghi";
-        $merchantCode = new MerchantCode($code);
-
-        $this->assertEquals($code, (string)$merchantCode);
+        $this->assertEquals($code, $merchantCode->getValue());
     }
 
     /**
@@ -37,7 +29,7 @@ class MerchantCodeTest extends \PHPUnit_Framework_TestCase
     {
         $merchantCode = new MerchantCode($code);
 
-        $this->assertEquals($expected, (string)$merchantCode);
+        $this->assertEquals($expected, $merchantCode->getValue());
     }
 
     public function merchantCodes()
@@ -46,6 +38,14 @@ class MerchantCodeTest extends \PHPUnit_Framework_TestCase
             array("123456789", "123 456 789"),
             array("123456789", "\t123456789\n"),
         );
+    }
+
+    public function testToStringShouldReturnStringValue()
+    {
+        $code = "abcdefghi";
+        $merchantCode = new MerchantCode($code);
+
+        $this->assertEquals($code, (string)$merchantCode);
     }
 
     /**
