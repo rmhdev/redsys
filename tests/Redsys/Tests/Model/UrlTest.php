@@ -28,6 +28,14 @@ class UrlTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * @expectedException \LengthException
+     */
+    public function testTooLongValueShouldThrowException()
+    {
+        new Url(str_repeat("1234567890", 25) . "a");
+    }
+
+    /**
      * @dataProvider invalidValues
      * @expectedException \UnexpectedValueException
      */
