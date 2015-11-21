@@ -9,9 +9,9 @@
 
 namespace Redsys\Model;
 
-class Url implements ModelInterface
+class ProductDescription implements ModelInterface
 {
-    const MAX_LENGTH = 250;
+    const MAX_LENGTH = 150;
 
     private $value;
 
@@ -20,12 +20,7 @@ class Url implements ModelInterface
         $length = strlen($value);
         if (self::MAX_LENGTH < $length) {
             throw new \LengthException(
-                sprintf('Url length (%d) exceeds max (%d)', $length, self::MAX_LENGTH)
-            );
-        }
-        if (filter_var($value, FILTER_VALIDATE_URL) === false) {
-            throw new \UnexpectedValueException(
-                sprintf('Url "%s" is invalid', $value)
+                sprintf('Description length (%d) exceeds max (%d)', $length, self::MAX_LENGTH)
             );
         }
         $this->value = (string)$value;
