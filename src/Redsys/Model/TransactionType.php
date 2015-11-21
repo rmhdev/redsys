@@ -28,6 +28,9 @@ class TransactionType implements ModelInterface
 
     private $value;
 
+    /**
+     * @param string $value
+     */
     public function __construct($value)
     {
         if (strlen($value) > 1) {
@@ -51,11 +54,17 @@ class TransactionType implements ModelInterface
         return $this->value;
     }
 
+    /**
+     * @inheritdoc
+     */
     public function __toString()
     {
         return $this->getValue();
     }
 
+    /**
+     * @return array
+     */
     public static function availableTypes()
     {
         return array(
