@@ -10,7 +10,7 @@
 
 namespace Redsys\Model;
 
-final class MerchantCode
+final class MerchantCode implements ModelInterface
 {
     const MAX_LENGTH = 9;
 
@@ -39,7 +39,7 @@ final class MerchantCode
     }
 
     /**
-     * @return string
+     * @inheritdoc
      */
     public function __toString()
     {

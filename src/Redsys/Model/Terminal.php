@@ -2,7 +2,7 @@
 
 namespace Redsys\Model;
 
-final class Terminal
+final class Terminal implements ModelInterface
 {
     const MAX_LENGTH = 3;
 
@@ -17,7 +17,7 @@ final class Terminal
                 sprintf('Max terminal value length is %d, but "%s" code is %d', self::MAX_LENGTH, $value, $length)
             );
         }
-        $this->value = $value;
+        $this->value = (string)$value;
     }
 
     public function getValue()
@@ -26,7 +26,7 @@ final class Terminal
     }
 
     /**
-     * @return string
+     * @inheritdoc
      */
     public function __toString()
     {
