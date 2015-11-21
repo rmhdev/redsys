@@ -25,8 +25,13 @@ class HmacSha256V1
         return self::NAME;
     }
 
-    public function parseParameters($parameters = array())
+    public function encode($parameters = array())
     {
         return base64_encode(json_encode($parameters));
+    }
+
+    public function decode($text)
+    {
+        return json_decode(base64_decode($text), true);
     }
 }

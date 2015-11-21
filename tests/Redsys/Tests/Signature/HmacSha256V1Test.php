@@ -21,11 +21,20 @@ class HmacSha256V1Test extends \PHPUnit_Framework_TestCase
         $this->assertEquals("HMAC_SHA256_V1", $signature->getName());
     }
 
-    public function testParseParametersShouldReturnCodifiedString()
+    public function testEncodeShouldReturnCodifiedString()
     {
         $signature = new HmacSha256V1();
+        $parameters = $this->getParameters();
 
-        $parameters = array(
+        $this->assertEquals(
+            $this->rawEncode($parameters),
+            $signature->encode($parameters)
+        );
+    }
+
+    private function getParameters()
+    {
+        return array(
             "DS_MERCHANT_AMOUNT" => "145",
             "DS_MERCHANT_ORDER" => "1234qwerty",
             "DS_MERCHANT_MERCHANTCODE" => "999008881",
@@ -36,10 +45,19 @@ class HmacSha256V1Test extends \PHPUnit_Framework_TestCase
             "DS_MERCHANT_URLOK" => "",
             "DS_MERCHANT_URLKO" => "",
         );
+    }
 
-        $this->assertEquals(
-            base64_encode(json_encode($parameters)),
-            $signature->parseParameters($parameters)
-        );
+    private function rawEncode($parameters = array())
+    {
+        return base64_encode(json_encode($parameters));
+    }
+
+    public function testDecodeShouldReturnArray()
+    {
+        $signature = new HmacSha256V1();
+        $parameters = $this->getParameters();
+        $encoded = $this->rawEncode($parameters);
+
+        $this->assertEquals($parameters, $signature->decode($encoded));
     }
 }
