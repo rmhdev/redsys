@@ -53,7 +53,7 @@ final class Request
                     sprintf('Field "%s" is not available', $field)
                 );
             }
-            $processed[strtolower($field)] = $value;
+            $processed[$this->getNormalizedFieldName($field)] = $value;
         }
 
         return $processed;
@@ -61,10 +61,10 @@ final class Request
 
     private function isAvailableField($field)
     {
-        return ("" !== $this->getNormalizedFieldName($field));
+        return ("" !== $this->getPublicFieldName($field));
     }
 
-    private function getNormalizedFieldName($field)
+    private function getPublicFieldName($field)
     {
         $fields = array_change_key_case(
             array_combine(self::availableFields(), self::availableFields()),
@@ -75,6 +75,11 @@ final class Request
         return array_key_exists($field, $fields) ? $fields[$field] : "";
     }
 
+    private function getNormalizedFieldName($field)
+    {
+        return strtolower($field);
+    }
+
     /**
      * @return array
      */
@@ -82,8 +87,8 @@ final class Request
     {
         $processed = array();
         foreach ($this->parameters as $field => $value) {
-            $normalizedField = $this->getNormalizedFieldName($field);
-            $processed[$normalizedField] = $value;
+            $publicFieldName = $this->getPublicFieldName($field);
+            $processed[$publicFieldName] = $value;
         }
 
         return $processed;
