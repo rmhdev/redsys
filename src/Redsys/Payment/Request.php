@@ -31,8 +31,14 @@ final class Request
     const URL_OK = "Ds_Merchant_UrlOK";
     const URL_KO = "Ds_Merchant_UrlKO";
 
+    /**
+     * @var array
+     */
     private $parameters;
 
+    /**
+     * @param array $parameters
+     */
     public function __construct($parameters = array())
     {
         $this->parameters = $this->processParameters($parameters);
@@ -69,6 +75,9 @@ final class Request
         return array_key_exists($field, $fields) ? $fields[$field] : "";
     }
 
+    /**
+     * @return array
+     */
     public function toArray()
     {
         $processed = array();
@@ -80,6 +89,11 @@ final class Request
         return $processed;
     }
 
+    /**
+     * @param string $name
+     * @param mixed $default
+     * @return string|null
+     */
     public function get($name, $default = null)
     {
         $name = strtolower($name);
