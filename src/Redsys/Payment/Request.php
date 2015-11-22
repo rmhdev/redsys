@@ -40,10 +40,8 @@ final class Request
 
     private function processParameters($parameters = array())
     {
-        $normalizedAvailableFields = array();
-        foreach ($this->availableFields() as $availableField) {
-            $normalizedAvailableFields[strtolower($availableField)] = $availableField;
-        }
+        $normalizedAvailableFields = array_combine($this->availableFields(), $this->availableFields());
+        $normalizedAvailableFields = array_change_key_case($normalizedAvailableFields, CASE_LOWER);
         $processed = array();
         foreach ($parameters as $key => $value) {
             $normalizedKey = strtolower($key);
@@ -52,7 +50,7 @@ final class Request
                     sprintf('Field "%s" is not available', $key)
                 );
             }
-            $realKey = $normalizedAvailableFields[$normalizedKey];
+            $realKey = (string)$normalizedAvailableFields[$normalizedKey];
             $processed[$realKey] = $value;
         }
 
@@ -62,6 +60,15 @@ final class Request
     public function toArray()
     {
         return $this->parameters;
+    }
+
+    public function get($name, $default = null)
+    {
+        if (!array_key_exists($name, $this->parameters)) {
+            return $default;
+        }
+
+        return $this->parameters[$name];
     }
 
     private function availableFields()

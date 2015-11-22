@@ -128,4 +128,23 @@ class RequestTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals($parameters, $request->toArray());
     }
+
+    public function testGetForUndefinedFieldShouldReturnDefaultValue()
+    {
+        $request = new Request(array(
+            "Ds_Merchant_Order" => "1234qwerty",
+        ));
+
+        $this->assertNull($request->get("Lorem_Ipsum", null));
+        $this->assertEquals("hi!", $request->get("Adispicing", "hi!"));
+    }
+
+    public function testGetForDefinedFieldShouldReturnValue()
+    {
+        $request = new Request(array(
+            "Ds_Merchant_Order" => "1234qwerty",
+        ));
+
+        $this->assertEquals("1234qwerty", $request->get("Ds_Merchant_Order"));
+    }
 }
