@@ -146,5 +146,7 @@ class RequestTest extends \PHPUnit_Framework_TestCase
         ));
 
         $this->assertEquals("1234qwerty", $request->get("Ds_Merchant_Order"));
+        $this->assertEquals("1234qwerty", $request->get("DS_MERCHANT_ORDER"));
+        $this->assertEquals("1234qwerty", $request->get("Ds_merchant_ORDER"));
     }
 }

@@ -40,30 +40,49 @@ final class Request
 
     private function processParameters($parameters = array())
     {
-        $normalizedAvailableFields = array_combine($this->availableFields(), $this->availableFields());
-        $normalizedAvailableFields = array_change_key_case($normalizedAvailableFields, CASE_LOWER);
         $processed = array();
-        foreach ($parameters as $key => $value) {
-            $normalizedKey = strtolower($key);
-            if (!array_key_exists($normalizedKey, $normalizedAvailableFields)) {
+        foreach ($parameters as $field => $value) {
+            if (!$this->isAvailableField($field)) {
                 throw new \UnexpectedValueException(
-                    sprintf('Field "%s" is not available', $key)
+                    sprintf('Field "%s" is not available', $field)
                 );
             }
-            $realKey = (string)$normalizedAvailableFields[$normalizedKey];
-            $processed[$realKey] = $value;
+            $processed[strtolower($field)] = $value;
         }
 
         return $processed;
     }
 
+    private function isAvailableField($field)
+    {
+        return ("" !== $this->getNormalizedFieldName($field));
+    }
+
+    private function getNormalizedFieldName($field)
+    {
+        $fields = array_change_key_case(
+            array_combine($this->availableFields(), $this->availableFields()),
+            CASE_LOWER
+        );
+        $field = strtolower($field);
+
+        return array_key_exists($field, $fields) ? $fields[$field] : "";
+    }
+
     public function toArray()
     {
-        return $this->parameters;
+        $processed = array();
+        foreach ($this->parameters as $field => $value) {
+            $normalizedField = $this->getNormalizedFieldName($field);
+            $processed[$normalizedField] = $value;
+        }
+
+        return $processed;
     }
 
     public function get($name, $default = null)
     {
+        $name = strtolower($name);
         if (!array_key_exists($name, $this->parameters)) {
             return $default;
         }
