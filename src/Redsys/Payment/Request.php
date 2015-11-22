@@ -67,7 +67,7 @@ final class Request
     private function getNormalizedFieldName($field)
     {
         $fields = array_change_key_case(
-            array_combine($this->availableFields(), $this->availableFields()),
+            array_combine(self::availableFields(), self::availableFields()),
             CASE_LOWER
         );
         $field = strtolower($field);
@@ -104,7 +104,7 @@ final class Request
         return $this->parameters[$name];
     }
 
-    private function availableFields()
+    public static function availableFields()
     {
         return array(
             self::AMOUNT,
@@ -117,13 +117,13 @@ final class Request
             self::MERCHANT_DATA,
             self::MERCHANT_NAME,
             self::MERCHANT_URL,
-            self::TERMINAL,
-            self::TRANSACTION_TYPE,
             self::ORDER,
             self::PRODUCT_DESCRIPTION,
             self::SUM_TOTAL,
+            self::TERMINAL,
             self::TITULAR,
             self::TRANSACTION_DATE,
+            self::TRANSACTION_TYPE,
             self::URL_OK,
             self::URL_KO,
         );

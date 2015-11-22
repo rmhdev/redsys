@@ -103,7 +103,15 @@ class RequestTest extends \PHPUnit_Framework_TestCase
 
     public function testCreatingRequestWithAllAvailableFields()
     {
-        $parameters = array(
+        $parameters = $this->getAvailableFieldsWithValues();
+        $request = new Request($parameters);
+
+        $this->assertEquals($parameters, $request->toArray());
+    }
+
+    private function getAvailableFieldsWithValues()
+    {
+        return array(
             "Ds_Merchant_Amount" => "10025",
             "Ds_Merchant_AuthorisationCode" => "123456",
             "Ds_Merchant_ChargeExpiryDate" => "2015-11-22",
@@ -118,15 +126,12 @@ class RequestTest extends \PHPUnit_Framework_TestCase
             "Ds_Merchant_ProductDescription" => "Lorem ipsum",
             "Ds_Merchant_SumTotal" => "10025",
             "Ds_Merchant_Terminal" => "001",
+            "Ds_Merchant_Titular" => "Acme Inc",
             "Ds_Merchant_TransactionDate" => "2015-11-22",
             "Ds_Merchant_TransactionType" => "0",
-            "Ds_Merchant_Titular" => "Acme Inc",
             "Ds_Merchant_UrlOK" => "http://www.example.com/ok",
             "Ds_Merchant_UrlKO" => "http://www.example.com/ko",
         );
-        $request = new Request($parameters);
-
-        $this->assertEquals($parameters, $request->toArray());
     }
 
     public function testGetForUndefinedFieldShouldReturnDefaultValue()
@@ -148,5 +153,13 @@ class RequestTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals("1234qwerty", $request->get("Ds_Merchant_Order"));
         $this->assertEquals("1234qwerty", $request->get("DS_MERCHANT_ORDER"));
         $this->assertEquals("1234qwerty", $request->get("Ds_merchant_ORDER"));
+    }
+
+    public function testAvailableFieldsShouldReturnListOfAcceptedFieldNames()
+    {
+        $this->assertEquals(
+            array_keys($this->getAvailableFieldsWithValues()),
+            Request::availableFields()
+        );
     }
 }
