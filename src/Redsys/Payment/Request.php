@@ -1,4 +1,5 @@
 <?php
+
 /**
  * This file is part of the Redsys package.
  * For the full copyright and license information, please view the LICENSE
@@ -37,37 +38,44 @@ final class Request
     private $parameters;
 
     /**
+     * @var array
+     */
+    private $customParameters;
+
+    /**
      * @param array $parameters
      */
     public function __construct($parameters = array())
     {
-        $this->parameters = $this->processParameters($parameters);
+        list($default, $custom) = $this->processParameters($parameters);
+        $this->parameters = $default;
+        $this->customParameters = $custom;
     }
 
     private function processParameters($parameters = array())
     {
         $processed = array();
+        $custom = array();
         foreach ($parameters as $field => $value) {
-            if (!$this->isAvailableField($field)) {
-                throw new \UnexpectedValueException(
-                    sprintf('Field "%s" is not available', $field)
-                );
+            if ($this->isCustomField($field)) {
+                $custom[$field] = $value;
+                continue;
             }
             $processed[$this->getNormalizedFieldName($field)] = $value;
         }
 
-        return $processed;
+        return array($processed, $custom);
     }
 
-    private function isAvailableField($field)
+    private function isCustomField($field)
     {
-        return ("" !== $this->getPublicFieldName($field));
+        return ("" === $this->getPublicFieldName($field));
     }
 
     private function getPublicFieldName($field)
     {
         $fields = array_change_key_case(
-            array_combine(self::availableFields(), self::availableFields()),
+            array_combine(self::defaultFields(), self::defaultFields()),
             CASE_LOWER
         );
         $field = strtolower($field);
@@ -83,6 +91,22 @@ final class Request
     /**
      * @return array
      */
+    public function customParameters()
+    {
+        return $this->customParameters;
+    }
+
+    /**
+     * @return bool
+     */
+    public function hasCustomParameters()
+    {
+        return !empty($this->customParameters());
+    }
+
+    /**
+     * @return array
+     */
     public function toArray()
     {
         $processed = array();
@@ -90,6 +114,7 @@ final class Request
             $publicFieldName = $this->getPublicFieldName($field);
             $processed[$publicFieldName] = $value;
         }
+        $processed = array_merge($processed, $this->customParameters());
 
         return $processed;
     }
@@ -101,15 +126,21 @@ final class Request
      */
     public function get($name, $default = null)
     {
+        if (array_key_exists($name, $this->customParameters)) {
+            return $this->customParameters[$name];
+        }
         $name = strtolower($name);
-        if (!array_key_exists($name, $this->parameters)) {
-            return $default;
+        if (array_key_exists($name, $this->parameters)) {
+            return $this->parameters[$name];
         }
 
-        return $this->parameters[$name];
+        return $default;
     }
 
-    public static function availableFields()
+    /**
+     * @return array
+     */
+    public static function defaultFields()
     {
         return array(
             self::AMOUNT,

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * This file is part of the Redsys package.
  * For the full copyright and license information, please view the LICENSE
@@ -48,26 +49,6 @@ class RequestTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @dataProvider invalidParameters
-     * @expectedException \UnexpectedValueException
-     */
-    public function testCreatingRequestWithUnknownFieldsShouldThrowException($parameters)
-    {
-        new Request($parameters);
-    }
-
-    public function invalidParameters()
-    {
-        return array(
-            array(
-                array(
-                    "Lorem_Ipsum" => "test"
-                )
-            ),
-        );
-    }
-
-    /**
      * @dataProvider unfixedValidParameters
      */
     public function testToArrayShouldReturnParametersWithFixedFieldNames($expected, $values)
@@ -101,15 +82,15 @@ class RequestTest extends \PHPUnit_Framework_TestCase
         );
     }
 
-    public function testCreatingRequestWithAllAvailableFields()
+    public function testCreatingRequestWithAllDefaultFields()
     {
-        $parameters = $this->getAvailableFieldsWithValues();
+        $parameters = $this->getDefaultFieldsWithValues();
         $request = new Request($parameters);
 
         $this->assertEquals($parameters, $request->toArray());
     }
 
-    private function getAvailableFieldsWithValues()
+    private function getDefaultFieldsWithValues()
     {
         return array(
             "Ds_Merchant_Amount" => "10025",
@@ -155,11 +136,81 @@ class RequestTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals("1234qwerty", $request->get("Ds_merchant_ORDER"));
     }
 
-    public function testAvailableFieldsShouldReturnListOfAcceptedFieldNames()
+    public function testDefaultFieldsShouldReturnListOfAcceptedFieldNames()
     {
         $this->assertEquals(
-            array_keys($this->getAvailableFieldsWithValues()),
-            Request::availableFields()
+            array_keys($this->getDefaultFieldsWithValues()),
+            Request::defaultFields()
         );
+    }
+
+    public function testGetCustomParametersWithOnlyCorrectFieldsShouldReturnEmptyList()
+    {
+        $request = new Request(array(
+            "Ds_Merchant_MerchantCode" => "123456789"
+        ));
+
+        $this->assertEquals(array(), $request->customParameters());
+    }
+
+    public function testGetWithCustomParametersShouldReturnAddedCustomParameters()
+    {
+        $parameters = array(
+            "Lorem_Ipsum" => "test"
+        );
+        $request = new Request($parameters);
+
+        $this->assertEquals($parameters, $request->customParameters());
+    }
+
+    public function testGetWithCustomParameterWithShouldReturnValue()
+    {
+        $parameters = array(
+            "Lorem_Ipsum" => "test"
+        );
+        $request = new Request($parameters);
+
+        $this->assertEquals("test", $request->get("Lorem_Ipsum"));
+    }
+
+    public function testToArrayWithCustomParametersShouldReturnAllParameters()
+    {
+        $parameters = array(
+            "Ds_Merchant_MerchantCode" => "123456789",
+            "Lorem_Ipsum" => "test"
+        );
+        $request = new Request($parameters);
+
+        $this->assertEquals($parameters, $request->toArray());
+    }
+
+    public function customParameters()
+    {
+        return array(
+            array(
+                array(
+                    "Lorem_Ipsum" => "test"
+                )
+            ),
+        );
+    }
+
+    public function testHasCustomParametersWithNoCustomParametersShouldReturnFalse()
+    {
+        $request = new Request(array(
+            "Ds_Merchant_MerchantCode" => "123456789",
+        ));
+
+        $this->assertFalse($request->hasCustomParameters());
+    }
+
+    public function testHasCustomParametersWithCustomParametersShouldReturnTrue()
+    {
+        $request = new Request(array(
+            "Ds_Merchant_MerchantCode" => "123456789",
+            "Lorem_Ipsum" => "test"
+        ));
+
+        $this->assertTrue($request->hasCustomParameters());
     }
 }
