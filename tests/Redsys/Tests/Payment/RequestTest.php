@@ -85,7 +85,7 @@ class RequestTest extends AbstractTest
         $this->assertEquals($parameters, $request->toArray());
     }
 
-    private function getDefaultFieldsWithValues()
+    protected function getDefaultFieldsWithValues()
     {
         return array(
             "Ds_Merchant_Amount" => "10025",
