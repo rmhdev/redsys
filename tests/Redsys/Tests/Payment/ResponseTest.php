@@ -42,4 +42,38 @@ class ResponseTest extends AbstractTest
             )
         );
     }
+
+    /**
+     * @dataProvider unfixedValidParameters
+     */
+    public function testToArrayShouldReturnParametersWithFixedFieldNames($expected, $values)
+    {
+        $request = $this->create($values);
+
+        $this->assertEquals($expected, $request->toArray());
+    }
+
+    public function unfixedValidParameters()
+    {
+        return array(
+            array(
+                array(
+                    "Ds_MerchantCode" => "12345abCd"
+                ),
+                array(
+                    "DS_MERCHANTCODE" => "12345abCd"
+                )
+            ),
+            array(
+                array(
+                    "Ds_MerchantCode" => "12345abCd",
+                    "Ds_Terminal" => "001",
+                ),
+                array(
+                    "Ds_MerchantCODE" => "12345abCd",
+                    "ds_terminal" => "001",
+                ),
+            )
+        );
+    }
 }
