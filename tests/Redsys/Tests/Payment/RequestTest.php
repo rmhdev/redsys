@@ -12,25 +12,20 @@ namespace Redsys\Tests\Payment;
 
 use Redsys\Payment\Request;
 
-class RequestTest extends \PHPUnit_Framework_TestCase
+class RequestTest extends AbstractTest
 {
-    public function testToArrayEmptyRequestShouldReturnEmptyArray()
+    /**
+     * @param array $parameters
+     * @return Request
+     */
+    protected function create($parameters = array())
     {
-        $request = new Request();
-
-        $this->assertEquals(array(), $request->toArray());
+        return new Request($parameters);
     }
 
     /**
-     * @dataProvider validParameters
+     * @inheritdoc
      */
-    public function testToArrayShouldReturnParametersDefinedInConstructor($parameters)
-    {
-        $request = new Request($parameters);
-
-        $this->assertEquals($parameters, $request->toArray());
-    }
-
     public function validParameters()
     {
         return array(

@@ -10,7 +10,7 @@
 
 namespace Redsys\Payment;
 
-final class Response
+final class Response implements PaymentInterface
 {
     /**
      * @var array
@@ -22,7 +22,9 @@ final class Response
         $this->parameters = $parameters;
     }
 
-
+    /**
+     * @inheritdoc
+     */
     public function toArray()
     {
         return $this->parameters;

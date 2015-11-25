@@ -10,7 +10,7 @@
 
 namespace Redsys\Payment;
 
-final class Request
+final class Request implements PaymentInterface
 {
     const AMOUNT = "Ds_Merchant_Amount";
     const AUTHORISATION_CODE = "Ds_Merchant_AuthorisationCode";
