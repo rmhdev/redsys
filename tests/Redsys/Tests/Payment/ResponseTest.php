@@ -20,4 +20,31 @@ class ResponseTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals(array(), $request->toArray());
     }
+
+    /**
+     * @dataProvider validParameters
+     */
+    public function testToArrayShouldReturnParametersDefinedInConstructor($parameters)
+    {
+        $request = new Response($parameters);
+
+        $this->assertEquals($parameters, $request->toArray());
+    }
+
+    public function validParameters()
+    {
+        return array(
+            array(
+                array(
+                    "Ds_MerchantCode" => "123456789"
+                ),
+            ),
+            array(
+                array(
+                    "Ds_MerchantCode" => "123456789",
+                    "Ds_Terminal" => "001",
+                ),
+            )
+        );
+    }
 }
