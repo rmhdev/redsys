@@ -69,4 +69,33 @@ class ResponseTest extends AbstractTest
             )
         );
     }
+
+    public function testWithAllDefaultCorrectParmetersShouldReturnAllParameters()
+    {
+        $parameters = $this->getDefaultFieldsWithValues();
+        $request = $this->create($parameters);
+
+        $this->assertEquals($parameters, $request->toArray());
+    }
+
+    protected function getDefaultFieldsWithValues()
+    {
+        return array(
+            "Ds_Amount" => "10025",
+            "Ds_AuthorisationCode" => "123456",
+            "Ds_Card_Country" => "724",
+            "Ds_Card_Type" => "D",
+            "Ds_ConsumerLanguage" => "001",
+            "Ds_Currency" => "978",
+            "Ds_Date" => "25/11/2015",
+            "Ds_Hour" => "19:30",
+            "Ds_MerchantCode" => "1234abcde",
+            "Ds_MerchantData" => "Lorem Ipsum",
+            "Ds_Order" => "1234qwerty",
+            "Ds_Response" => "80",
+            "Ds_SecurePayment" => "1",
+            "Ds_TransactionType" => "0",
+            "Ds_Terminal" => "001",
+        );
+    }
 }
