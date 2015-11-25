@@ -27,39 +27,6 @@ abstract class AbstractTest extends \PHPUnit_Framework_TestCase
      */
     abstract protected function create($parameters = array());
 
-    /**
-     * @dataProvider validParameters
-     * @param array $parameters
-     */
-    public function testToArrayShouldReturnParametersDefinedInConstructor($parameters)
-    {
-        $request = $this->create($parameters);
-
-        $this->assertEquals($parameters, $request->toArray());
-    }
-
-    /**
-     * @return array
-     */
-    abstract public function validParameters();
-
-    /**
-     * @dataProvider unfixedValidParameters
-     * @param array $expected
-     * @param array $values
-     */
-    public function testToArrayShouldReturnParametersWithFixedFieldNames($expected, $values)
-    {
-        $request = $this->create($values);
-
-        $this->assertEquals($expected, $request->toArray());
-    }
-
-    /**
-     * @return array
-     */
-    abstract public function unfixedValidParameters();
-
     public function testWithAllDefaultCorrectParametersShouldReturnAllParameters()
     {
         $parameters = $this->getDefaultFieldsWithValues();
@@ -68,5 +35,20 @@ abstract class AbstractTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($parameters, $request->toArray());
     }
 
+    /**
+     * @return array
+     */
     abstract protected function getDefaultFieldsWithValues();
+
+    public function testToArrayShouldReturnParametersWithCorrectedFieldNames()
+    {
+        $parameters = $this->getDefaultFieldsWithValues();
+        $keys = array_map(function ($key) {
+            return strtoupper($key);
+        }, array_keys($parameters));
+
+        $request = $this->create(array_combine($keys, array_values($parameters)));
+
+        $this->assertEquals($parameters, $request->toArray());
+    }
 }

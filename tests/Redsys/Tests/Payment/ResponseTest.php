@@ -23,53 +23,6 @@ class ResponseTest extends AbstractTest
         return new Response($parameters);
     }
 
-    /**
-     * @inheritdoc
-     */
-    public function validParameters()
-    {
-        return array(
-            array(
-                array(
-                    "Ds_MerchantCode" => "123456789"
-                ),
-            ),
-            array(
-                array(
-                    "Ds_MerchantCode" => "123456789",
-                    "Ds_Terminal" => "001",
-                ),
-            )
-        );
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function unfixedValidParameters()
-    {
-        return array(
-            array(
-                array(
-                    "Ds_MerchantCode" => "12345abCd"
-                ),
-                array(
-                    "DS_MERCHANTCODE" => "12345abCd"
-                )
-            ),
-            array(
-                array(
-                    "Ds_MerchantCode" => "12345abCd",
-                    "Ds_Terminal" => "001",
-                ),
-                array(
-                    "Ds_MerchantCODE" => "12345abCd",
-                    "ds_terminal" => "001",
-                ),
-            )
-        );
-    }
-
     protected function getDefaultFieldsWithValues()
     {
         return array(

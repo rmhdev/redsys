@@ -23,53 +23,6 @@ class RequestTest extends AbstractTest
         return new Request($parameters);
     }
 
-    /**
-     * @inheritdoc
-     */
-    public function validParameters()
-    {
-        return array(
-            array(
-                array(
-                    "Ds_Merchant_MerchantCode" => "123456789"
-                ),
-            ),
-            array(
-                array(
-                    "Ds_Merchant_MerchantCode" => "123456789",
-                    "Ds_Merchant_Terminal" => "001",
-                ),
-            )
-        );
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function unfixedValidParameters()
-    {
-        return array(
-            array(
-                array(
-                    "Ds_Merchant_MerchantCode" => "12345abCd"
-                ),
-                array(
-                    "DS_MERCHANT_MERCHANTCODE" => "12345abCd"
-                )
-            ),
-            array(
-                array(
-                    "Ds_Merchant_MerchantCode" => "12345abCd",
-                    "Ds_Merchant_Terminal" => "001",
-                ),
-                array(
-                    "Ds_MERCHANT_MerchantCODE" => "12345abCd",
-                    "ds_merchant_terminal" => "001",
-                ),
-            )
-        );
-    }
-
     protected function getDefaultFieldsWithValues()
     {
         return array(
