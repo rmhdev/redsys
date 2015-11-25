@@ -70,14 +70,6 @@ class ResponseTest extends AbstractTest
         );
     }
 
-    public function testWithAllDefaultCorrectParmetersShouldReturnAllParameters()
-    {
-        $parameters = $this->getDefaultFieldsWithValues();
-        $request = $this->create($parameters);
-
-        $this->assertEquals($parameters, $request->toArray());
-    }
-
     protected function getDefaultFieldsWithValues()
     {
         return array(

@@ -70,14 +70,6 @@ class RequestTest extends AbstractTest
         );
     }
 
-    public function testCreatingRequestWithAllDefaultFields()
-    {
-        $parameters = $this->getDefaultFieldsWithValues();
-        $request = new Request($parameters);
-
-        $this->assertEquals($parameters, $request->toArray());
-    }
-
     protected function getDefaultFieldsWithValues()
     {
         return array(
