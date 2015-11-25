@@ -44,15 +44,8 @@ class ResponseTest extends AbstractTest
     }
 
     /**
-     * @dataProvider unfixedValidParameters
+     * @inheritdoc
      */
-    public function testToArrayShouldReturnParametersWithFixedFieldNames($expected, $values)
-    {
-        $request = $this->create($values);
-
-        $this->assertEquals($expected, $request->toArray());
-    }
-
     public function unfixedValidParameters()
     {
         return array(

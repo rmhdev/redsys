@@ -42,4 +42,21 @@ abstract class AbstractTest extends \PHPUnit_Framework_TestCase
      * @return array
      */
     abstract public function validParameters();
+
+    /**
+     * @dataProvider unfixedValidParameters
+     * @param array $expected
+     * @param array $values
+     */
+    public function testToArrayShouldReturnParametersWithFixedFieldNames($expected, $values)
+    {
+        $request = $this->create($values);
+
+        $this->assertEquals($expected, $request->toArray());
+    }
+
+    /**
+     * @return array
+     */
+    abstract public function unfixedValidParameters();
 }
