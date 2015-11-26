@@ -51,4 +51,34 @@ abstract class AbstractTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals($parameters, $request->toArray());
     }
+
+    public function testGetForUndefinedFieldShouldReturnDefaultValue()
+    {
+        $request = $this->create($this->getDefaultFieldsWithValues());
+
+        $this->assertNull($request->get("Lorem_Ipsum", null));
+        $this->assertEquals("hi!", $request->get("Adispicing", "hi!"));
+    }
+
+    public function testGetForDefinedFieldShouldReturnValue()
+    {
+        $parameter = $this->getFirstDefaultParameter();
+        $key = array_keys($parameter)[0];
+        $value = array_values($parameter)[0];
+        $request = $this->create($parameter);
+
+        $text = 'get value from existing field "%s"';
+        $this->assertEquals($value, $request->get($key), sprintf($text, $key));
+        $this->assertEquals($value, $request->get(strtoupper($key)), sprintf($text, strtoupper($key)));
+        $this->assertEquals($value, $request->get(strtolower($key)), sprintf($text, strtolower($key)));
+    }
+
+    protected function getFirstDefaultParameter()
+    {
+        foreach ($this->getDefaultFieldsWithValues() as $name => $value) {
+            return array($name => $value);
+        }
+
+        throw new \InvalidArgumentException("Default parameters list must have elements");
+    }
 }

@@ -48,27 +48,6 @@ class RequestTest extends AbstractTest
         );
     }
 
-    public function testGetForUndefinedFieldShouldReturnDefaultValue()
-    {
-        $request = new Request(array(
-            "Ds_Merchant_Order" => "1234qwerty",
-        ));
-
-        $this->assertNull($request->get("Lorem_Ipsum", null));
-        $this->assertEquals("hi!", $request->get("Adispicing", "hi!"));
-    }
-
-    public function testGetForDefinedFieldShouldReturnValue()
-    {
-        $request = new Request(array(
-            "Ds_Merchant_Order" => "1234qwerty",
-        ));
-
-        $this->assertEquals("1234qwerty", $request->get("Ds_Merchant_Order"));
-        $this->assertEquals("1234qwerty", $request->get("DS_MERCHANT_ORDER"));
-        $this->assertEquals("1234qwerty", $request->get("Ds_merchant_ORDER"));
-    }
-
     public function testDefaultFieldsShouldReturnListOfAcceptedFieldNames()
     {
         $this->assertEquals(

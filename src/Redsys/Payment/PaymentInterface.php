@@ -16,4 +16,11 @@ interface PaymentInterface
      * @return array
      */
     public function toArray();
+
+    /**
+     * @param string $name
+     * @param mixed $default
+     * @return string
+     */
+    public function get($name, $default = null);
 }

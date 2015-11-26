@@ -70,6 +70,19 @@ final class Response implements PaymentInterface
         return $processed;
     }
 
+    /**
+     * @inheritdoc
+     */
+    public function get($name, $default = null)
+    {
+        $name = strtolower($name);
+        if (array_key_exists($name, $this->parameters)) {
+            return $this->parameters[$name];
+        }
+
+        return $default;
+    }
+
     public static function defaultFields()
     {
         return array(
