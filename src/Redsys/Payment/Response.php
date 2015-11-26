@@ -77,6 +77,7 @@ final class Response implements PaymentInterface
             $publicFieldName = $this->getPublicFieldName($field);
             $processed[$publicFieldName] = $value;
         }
+        $processed = array_merge($processed, $this->customParameters());
 
         return $processed;
     }

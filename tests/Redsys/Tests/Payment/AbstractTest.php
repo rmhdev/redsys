@@ -108,4 +108,15 @@ abstract class AbstractTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals("test", $request->get("Lorem_Ipsum"));
     }
+
+    public function testToArrayWithCustomParametersShouldReturnAllParameters()
+    {
+        $parameters = array_merge(
+            $this->getFirstDefaultParameter(),
+            array("Lorem_Ipsum" => "test")
+        );
+        $request = $this->create($parameters);
+
+        $this->assertEquals($parameters, $request->toArray());
+    }
 }

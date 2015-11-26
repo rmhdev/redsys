@@ -56,16 +56,7 @@ class RequestTest extends AbstractTest
         );
     }
 
-    public function testToArrayWithCustomParametersShouldReturnAllParameters()
-    {
-        $parameters = array(
-            "Ds_Merchant_MerchantCode" => "123456789",
-            "Lorem_Ipsum" => "test"
-        );
-        $request = new Request($parameters);
 
-        $this->assertEquals($parameters, $request->toArray());
-    }
 
     public function customParameters()
     {
