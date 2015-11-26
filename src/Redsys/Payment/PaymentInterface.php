@@ -23,4 +23,9 @@ interface PaymentInterface
      * @return string
      */
     public function get($name, $default = null);
+
+    /**
+     * @return array
+     */
+    public function customParameters();
 }

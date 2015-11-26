@@ -81,4 +81,31 @@ abstract class AbstractTest extends \PHPUnit_Framework_TestCase
 
         throw new \InvalidArgumentException("Default parameters list must have elements");
     }
+
+    public function testGetCustomParametersWithOnlyCorrectFieldsShouldReturnEmptyList()
+    {
+        $request = $this->create($this->getDefaultFieldsWithValues());
+
+        $this->assertEquals(array(), $request->customParameters());
+    }
+
+    public function testGetWithCustomParametersShouldReturnAddedCustomParameters()
+    {
+        $parameters = array(
+            "Lorem_Ipsum" => "test"
+        );
+        $request = $this->create($parameters);
+
+        $this->assertEquals($parameters, $request->customParameters());
+    }
+
+    public function testGetWithCustomParameterWithShouldReturnValue()
+    {
+        $parameters = array(
+            "Lorem_Ipsum" => "test"
+        );
+        $request = $this->create($parameters);
+
+        $this->assertEquals("test", $request->get("Lorem_Ipsum"));
+    }
 }

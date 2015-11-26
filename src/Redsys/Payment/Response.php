@@ -17,22 +17,33 @@ final class Response implements PaymentInterface
      */
     private $parameters;
 
+    /**
+     * @var array
+     */
+    private $customParameters;
+
+    /**
+     * @param array $parameters
+     */
     public function __construct($parameters = array())
     {
-        $this->parameters = $this->processParameters($parameters);
+        list($default, $custom) = $this->processParameters($parameters);
+        $this->parameters = $default;
+        $this->customParameters = $custom;
     }
 
     private function processParameters($parameters = array())
     {
-        $processed = array();
+        $processed = $custom = array();
         foreach ($parameters as $field => $value) {
             if ($this->isCustomField($field)) {
+                $custom[$field] = $value;
                 continue;
             }
             $processed[$this->getNormalizedFieldName($field)] = $value;
         }
 
-        return $processed;
+        return array($processed, $custom);
     }
 
     private function isCustomField($field)
@@ -75,6 +86,9 @@ final class Response implements PaymentInterface
      */
     public function get($name, $default = null)
     {
+        if (array_key_exists($name, $this->customParameters)) {
+            return $this->customParameters[$name];
+        }
         $name = strtolower($name);
         if (array_key_exists($name, $this->parameters)) {
             return $this->parameters[$name];
@@ -82,6 +96,15 @@ final class Response implements PaymentInterface
 
         return $default;
     }
+
+    /**
+     * @inheritdoc
+     */
+    public function customParameters()
+    {
+        return $this->customParameters;
+    }
+
 
     public static function defaultFields()
     {

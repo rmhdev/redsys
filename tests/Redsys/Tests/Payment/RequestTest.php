@@ -56,35 +56,6 @@ class RequestTest extends AbstractTest
         );
     }
 
-    public function testGetCustomParametersWithOnlyCorrectFieldsShouldReturnEmptyList()
-    {
-        $request = new Request(array(
-            "Ds_Merchant_MerchantCode" => "123456789"
-        ));
-
-        $this->assertEquals(array(), $request->customParameters());
-    }
-
-    public function testGetWithCustomParametersShouldReturnAddedCustomParameters()
-    {
-        $parameters = array(
-            "Lorem_Ipsum" => "test"
-        );
-        $request = new Request($parameters);
-
-        $this->assertEquals($parameters, $request->customParameters());
-    }
-
-    public function testGetWithCustomParameterWithShouldReturnValue()
-    {
-        $parameters = array(
-            "Lorem_Ipsum" => "test"
-        );
-        $request = new Request($parameters);
-
-        $this->assertEquals("test", $request->get("Lorem_Ipsum"));
-    }
-
     public function testToArrayWithCustomParametersShouldReturnAllParameters()
     {
         $parameters = array(
