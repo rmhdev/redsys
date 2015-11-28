@@ -9,7 +9,7 @@
 
 namespace Redsys\Security\Signature;
 
-class HmacSha256V1
+class HmacSha256V1 implements SignatureInterface
 {
     const NAME = "HMAC_SHA256_V1";
 
@@ -27,7 +27,7 @@ class HmacSha256V1
     }
 
     /**
-     * @return string
+     * @inheritdoc
      */
     public function getName()
     {
@@ -35,8 +35,7 @@ class HmacSha256V1
     }
 
     /**
-     * @param array $parameters
-     * @return string
+     * @inheritdoc
      */
     public function encode($parameters = array())
     {
@@ -44,8 +43,7 @@ class HmacSha256V1
     }
 
     /**
-     * @param string $text
-     * @return array
+     * @inheritdoc
      */
     public function decode($text)
     {
