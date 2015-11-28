@@ -20,6 +20,12 @@ interface PaymentInterface extends \IteratorAggregate, \Countable
     public function get($name, $default = null);
 
     /**
+     * @param $name
+     * @return bool
+     */
+    public function has($name);
+
+    /**
      * @return array
      */
     public function toArray();

@@ -100,9 +100,7 @@ abstract class AbstractPayment implements PaymentInterface
     }
 
     /**
-     * @param string $name
-     * @param mixed $default
-     * @return string|null
+     * @inheritdoc
      */
     public function get($name, $default = null)
     {
@@ -116,6 +114,20 @@ abstract class AbstractPayment implements PaymentInterface
 
         return $default;
     }
+
+    /**
+     * @inheritdoc
+     */
+    public function has($name)
+    {
+        if (array_key_exists($name, $this->customParameters)) {
+            return true;
+        }
+        $name = strtolower($name);
+
+        return array_key_exists($name, $this->parameters);
+    }
+
 
     /**
      * @return array

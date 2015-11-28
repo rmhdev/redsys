@@ -73,6 +73,39 @@ abstract class AbstractTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($value, $request->get(strtolower($key)), sprintf($text, strtolower($key)));
     }
 
+    public function testHasForUndefinedFieldShouldReturnFalse()
+    {
+        $request = $this->create($this->getDefaultFieldsWithValues());
+
+        $this->assertFalse($request->has("Lorem_Ipsum"));
+    }
+
+    public function testHasForDefinedFieldShouldReturnTrue()
+    {
+        $parameter = $this->getFirstDefaultParameter();
+        $key = array_keys($parameter)[0];
+        $request = $this->create($parameter);
+
+        $text = 'has value from existing field "%s"';
+        $this->assertTrue($request->has($key), sprintf($text, $key));
+        $this->assertTrue($request->has(strtoupper($key)), sprintf($text, strtoupper($key)));
+        $this->assertTrue($request->has(strtolower($key)), sprintf($text, strtolower($key)));
+    }
+
+    public function testHasForCustomDefinedFieldShouldReturnTrue()
+    {
+        $request = $this->create(array("Lorem_Ipsum" => "test"));
+
+        $this->assertTrue($request->has("Lorem_Ipsum"));
+    }
+
+    public function testHasForCustomDefinedFieldShouldBeCaseSensitive()
+    {
+        $request = $this->create(array("Lorem_Ipsum" => "test"));
+
+        $this->assertFalse($request->has("LOREM_IPSUM"));
+    }
+
     protected function getFirstDefaultParameter()
     {
         foreach ($this->getDefaultFieldsWithValues() as $name => $value) {
