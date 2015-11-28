@@ -16,19 +16,19 @@ class Crypt3DesTest extends \PHPUnit_Framework_TestCase
 {
     public function testGetMessageShouldReturnMessage()
     {
-        $crypt = new Crypt3Des("lorem ipsum", "qwerty");
+        $crypt = new Crypt3Des("qwerty", "lorem ipsum");
 
         $this->assertEquals("lorem ipsum", $crypt->getMessage());
     }
 
     public function testEncryptShouldReturnEncryptedMessage()
     {
-        $crypt = new Crypt3Des("lorem ipsum", $this->getSecretKey());
+        $crypt = new Crypt3Des($this->getSecretKey(), "lorem ipsum");
 
-        $this->assertEquals($this->expectedEncrypt("lorem ipsum", $this->getSecretKey()), $crypt->encrypt());
+        $this->assertEquals($this->expectedEncrypt($this->getSecretKey(), "lorem ipsum"), $crypt->encrypt());
     }
 
-    private function expectedEncrypt($message, $key)
+    private function expectedEncrypt($key, $message)
     {
         $bytes = array(0,0,0,0,0,0,0,0);
         $iv = implode(array_map("chr", $bytes));
