@@ -8,7 +8,7 @@
  * @license MIT License
  */
 
-namespace Redsys\Payment;
+namespace Redsys\ParameterBag;
 
 final class Response extends AbstractPayment implements PaymentInterface
 {

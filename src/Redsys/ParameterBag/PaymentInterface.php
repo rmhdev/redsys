@@ -8,7 +8,7 @@
  * @license MIT License
  */
 
-namespace Redsys\Payment;
+namespace Redsys\ParameterBag;
 
 interface PaymentInterface extends \IteratorAggregate, \Countable
 {

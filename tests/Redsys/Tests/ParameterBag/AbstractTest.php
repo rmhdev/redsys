@@ -8,9 +8,9 @@
  * @license MIT License
  */
 
-namespace Redsys\Tests\Payment;
+namespace Redsys\Tests\ParameterBag;
 
-use Redsys\Payment\PaymentInterface;
+use Redsys\ParameterBag\PaymentInterface;
 
 abstract class AbstractTest extends \PHPUnit_Framework_TestCase
 {

@@ -8,9 +8,9 @@
  * @license MIT License
  */
 
-namespace Redsys\Tests\Payment;
+namespace Redsys\Tests\ParameterBag;
 
-use Redsys\Payment\Response;
+use Redsys\ParameterBag\Response;
 
 class ResponseTest extends AbstractTest
 {
