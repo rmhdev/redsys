@@ -10,7 +10,7 @@
 
 namespace Redsys\ParameterBag;
 
-final class Request extends AbstractPayment implements PaymentInterface
+final class Request extends AbstractParameterBag implements ParameterBagInterface
 {
     const AMOUNT = "Ds_Merchant_Amount";
     const AUTHORISATION_CODE = "Ds_Merchant_AuthorisationCode";

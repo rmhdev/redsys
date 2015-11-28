@@ -10,7 +10,7 @@
 
 namespace Redsys\ParameterBag;
 
-abstract class AbstractPayment implements PaymentInterface
+abstract class AbstractParameterBag implements ParameterBagInterface
 {
     /**
      * @var array

@@ -10,7 +10,7 @@
 
 namespace Redsys\Tests\ParameterBag;
 
-use Redsys\ParameterBag\PaymentInterface;
+use Redsys\ParameterBag\ParameterBagInterface;
 
 abstract class AbstractTest extends \PHPUnit_Framework_TestCase
 {
@@ -23,7 +23,7 @@ abstract class AbstractTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @param array $parameters
-     * @return PaymentInterface
+     * @return ParameterBagInterface
      */
     abstract protected function create($parameters = array());
 

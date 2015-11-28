@@ -10,7 +10,7 @@
 
 namespace Redsys\ParameterBag;
 
-interface PaymentInterface extends \IteratorAggregate, \Countable
+interface ParameterBagInterface extends \IteratorAggregate, \Countable
 {
     /**
      * @param string $name
