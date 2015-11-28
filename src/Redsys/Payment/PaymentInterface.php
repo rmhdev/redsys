@@ -33,6 +33,11 @@ interface PaymentInterface extends \IteratorAggregate, \Countable
     /**
      * @return array
      */
+    public function keys();
+
+    /**
+     * @return array
+     */
     public function custom();
 
     /**

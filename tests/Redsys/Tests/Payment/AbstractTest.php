@@ -185,6 +185,17 @@ abstract class AbstractTest extends \PHPUnit_Framework_TestCase
         );
     }
 
+    public function testKeysShouldReturnListOfAllDefinedKeys()
+    {
+        $parameters = array_merge(
+            $this->getDefaultFieldsWithValues(),
+            array("Lorem_Ipsum" => "test")
+        );
+        $request = $this->create($parameters);
+
+        $this->assertEquals(array_keys($parameters), $request->keys());
+    }
+
     public function testObjectShouldBeTraversable()
     {
         $request = $this->create();

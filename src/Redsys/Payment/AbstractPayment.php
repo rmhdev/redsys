@@ -102,6 +102,14 @@ abstract class AbstractPayment implements PaymentInterface
     /**
      * @inheritdoc
      */
+    public function keys()
+    {
+        return array_keys($this->all());
+    }
+
+    /**
+     * @inheritdoc
+     */
     public function get($name, $default = null)
     {
         if (array_key_exists($name, $this->customParameters)) {
