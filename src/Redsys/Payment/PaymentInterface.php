@@ -10,19 +10,19 @@
 
 namespace Redsys\Payment;
 
-interface PaymentInterface
+interface PaymentInterface extends \IteratorAggregate, \Countable
 {
-    /**
-     * @return array
-     */
-    public function toArray();
-
     /**
      * @param string $name
      * @param mixed $default
      * @return string
      */
     public function get($name, $default = null);
+
+    /**
+     * @return array
+     */
+    public function toArray();
 
     /**
      * @return array

@@ -121,4 +121,20 @@ abstract class AbstractPayment implements PaymentInterface
      * @return array
      */
     abstract protected function getDefaultFields();
+
+    /**
+     * @inheritdoc
+     */
+    public function getIterator()
+    {
+        return new \ArrayIterator($this->toArray());
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function count()
+    {
+        return count($this->toArray());
+    }
 }

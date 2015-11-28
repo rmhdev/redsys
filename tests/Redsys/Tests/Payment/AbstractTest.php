@@ -144,4 +144,18 @@ abstract class AbstractTest extends \PHPUnit_Framework_TestCase
             $request::defaultFields()
         );
     }
+
+    public function testObjectShouldBeIterateable()
+    {
+        $request = $this->create();
+
+        $this->assertTrue($request instanceof \Traversable);
+    }
+
+    public function testObjectShouldBeCountable()
+    {
+        $request = $this->create();
+
+        $this->assertTrue($request instanceof \Countable);
+    }
 }
