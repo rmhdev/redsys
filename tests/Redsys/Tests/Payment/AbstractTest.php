@@ -106,6 +106,13 @@ abstract class AbstractTest extends \PHPUnit_Framework_TestCase
         $this->assertFalse($request->has("LOREM_IPSUM"));
     }
 
+    public function testGetForDefinedCustomFieldShouldBeCaseSensitive()
+    {
+        $request = $this->create(array("Lorem_Ipsum" => "test"));
+
+        $this->assertNull($request->get("LOREM_IPSUM"));
+    }
+
     protected function getFirstDefaultParameter()
     {
         foreach ($this->getDefaultFieldsWithValues() as $name => $value) {
