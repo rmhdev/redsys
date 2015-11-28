@@ -71,7 +71,7 @@ abstract class AbstractPayment implements PaymentInterface
     /**
      * @return array
      */
-    public function customParameters()
+    public function custom()
     {
         return $this->customParameters;
     }
@@ -79,22 +79,22 @@ abstract class AbstractPayment implements PaymentInterface
     /**
      * @return bool
      */
-    public function hasCustomParameters()
+    public function hasCustom()
     {
-        return !empty($this->customParameters());
+        return !empty($this->custom());
     }
 
     /**
      * @return array
      */
-    public function toArray()
+    public function all()
     {
         $processed = array();
         foreach ($this->parameters as $field => $value) {
             $publicFieldName = $this->getPublicFieldName($field);
             $processed[$publicFieldName] = $value;
         }
-        $processed = array_merge($processed, $this->customParameters());
+        $processed = array_merge($processed, $this->custom());
 
         return $processed;
     }
@@ -139,7 +139,7 @@ abstract class AbstractPayment implements PaymentInterface
      */
     public function getIterator()
     {
-        return new \ArrayIterator($this->toArray());
+        return new \ArrayIterator($this->all());
     }
 
     /**
@@ -147,6 +147,6 @@ abstract class AbstractPayment implements PaymentInterface
      */
     public function count()
     {
-        return count($this->toArray());
+        return count($this->all());
     }
 }

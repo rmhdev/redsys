@@ -18,7 +18,7 @@ abstract class AbstractTest extends \PHPUnit_Framework_TestCase
     {
         $request = $this->create();
 
-        $this->assertEquals(array(), $request->toArray());
+        $this->assertEquals(array(), $request->all());
     }
 
     /**
@@ -32,7 +32,7 @@ abstract class AbstractTest extends \PHPUnit_Framework_TestCase
         $parameters = $this->getDefaultFieldsWithValues();
         $request = $this->create($parameters);
 
-        $this->assertEquals($parameters, $request->toArray());
+        $this->assertEquals($parameters, $request->all());
     }
 
     /**
@@ -40,7 +40,7 @@ abstract class AbstractTest extends \PHPUnit_Framework_TestCase
      */
     abstract protected function getDefaultFieldsWithValues();
 
-    public function testToArrayShouldReturnParametersWithCorrectedFieldNames()
+    public function testAllShouldReturnParametersWithCorrectedFieldNames()
     {
         $parameters = $this->getDefaultFieldsWithValues();
         $keys = array_map(function ($key) {
@@ -49,7 +49,7 @@ abstract class AbstractTest extends \PHPUnit_Framework_TestCase
 
         $request = $this->create(array_combine($keys, array_values($parameters)));
 
-        $this->assertEquals($parameters, $request->toArray());
+        $this->assertEquals($parameters, $request->all());
     }
 
     public function testGetForUndefinedFieldShouldReturnDefaultValue()
@@ -126,7 +126,7 @@ abstract class AbstractTest extends \PHPUnit_Framework_TestCase
     {
         $request = $this->create($this->getDefaultFieldsWithValues());
 
-        $this->assertEquals(array(), $request->customParameters());
+        $this->assertEquals(array(), $request->custom());
     }
 
     public function testGetWithCustomParametersShouldReturnAddedCustomParameters()
@@ -136,7 +136,7 @@ abstract class AbstractTest extends \PHPUnit_Framework_TestCase
         );
         $request = $this->create($parameters);
 
-        $this->assertEquals($parameters, $request->customParameters());
+        $this->assertEquals($parameters, $request->custom());
     }
 
     public function testGetWithCustomParameterWithShouldReturnValue()
@@ -149,7 +149,7 @@ abstract class AbstractTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals("test", $request->get("Lorem_Ipsum"));
     }
 
-    public function testToArrayWithCustomParametersShouldReturnAllParameters()
+    public function testAllWithCustomParametersShouldReturnAllParameters()
     {
         $parameters = array_merge(
             $this->getFirstDefaultParameter(),
@@ -157,14 +157,14 @@ abstract class AbstractTest extends \PHPUnit_Framework_TestCase
         );
         $request = $this->create($parameters);
 
-        $this->assertEquals($parameters, $request->toArray());
+        $this->assertEquals($parameters, $request->all());
     }
 
     public function testHasCustomParametersWithNoCustomParametersShouldReturnFalse()
     {
         $request = $this->create($this->getDefaultFieldsWithValues());
 
-        $this->assertFalse($request->hasCustomParameters());
+        $this->assertFalse($request->hasCustom());
     }
 
     public function testHasCustomParametersWithCustomParametersShouldReturnTrue()
@@ -173,7 +173,7 @@ abstract class AbstractTest extends \PHPUnit_Framework_TestCase
             "Lorem_Ipsum" => "test"
         ));
 
-        $this->assertTrue($request->hasCustomParameters());
+        $this->assertTrue($request->hasCustom());
     }
 
     public function testDefaultFieldsShouldReturnListOfAcceptedFieldNames()

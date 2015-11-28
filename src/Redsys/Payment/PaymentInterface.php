@@ -28,17 +28,17 @@ interface PaymentInterface extends \IteratorAggregate, \Countable
     /**
      * @return array
      */
-    public function toArray();
+    public function all();
 
     /**
      * @return array
      */
-    public function customParameters();
+    public function custom();
 
     /**
      * @return bool
      */
-    public function hasCustomParameters();
+    public function hasCustom();
 
     /**
      * @return array
