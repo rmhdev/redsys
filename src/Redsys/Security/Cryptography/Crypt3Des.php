@@ -11,26 +11,45 @@ namespace Redsys\Security\Cryptography;
 
 class Crypt3Des
 {
+    /**
+     * @var string
+     */
     private $message;
 
+    /**
+     * @var string
+     */
     private $key;
 
-    public function __construct($message, $key)
+    /**
+     * @param string $key
+     * @param string $message
+     */
+    public function __construct($key, $message)
     {
-        $this->message = $message;
         $this->key = $key;
+        $this->message = $message;
     }
 
-    public function getMessage()
-    {
-        return $this->message;
-    }
-
+    /**
+     * @return string
+     */
     private function getKey()
     {
         return $this->key;
     }
 
+    /**
+     * @return string
+     */
+    public function getMessage()
+    {
+        return $this->message;
+    }
+
+    /**
+     * @return string
+     */
     public function encrypt()
     {
         $iv = str_repeat(chr(0), 8);
