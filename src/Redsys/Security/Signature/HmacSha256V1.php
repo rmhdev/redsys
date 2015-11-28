@@ -7,7 +7,7 @@
  * @license MIT License
  */
 
-namespace Redsys\Signature;
+namespace Redsys\Security\Signature;
 
 class HmacSha256V1
 {

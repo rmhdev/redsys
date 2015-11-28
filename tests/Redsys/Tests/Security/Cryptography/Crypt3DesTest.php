@@ -8,9 +8,9 @@
  * @license MIT License
  */
 
-namespace Redsys\Tests\Signature\Cryptography;
+namespace Redsys\Tests\Security\Cryptography;
 
-use Redsys\Signature\Cryptography\Crypt3Des;
+use Redsys\Security\Cryptography\Crypt3Des;
 
 class Crypt3DesTest extends \PHPUnit_Framework_TestCase
 {

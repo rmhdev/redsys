@@ -8,9 +8,9 @@
  * @license MIT License
  */
 
-namespace Redsys\Tests\Signature;
+namespace Redsys\Tests\Security\Signature;
 
-use Redsys\Signature\HmacSha256V1;
+use Redsys\Security\Signature\HmacSha256V1;
 
 class HmacSha256V1Test extends \PHPUnit_Framework_TestCase
 {

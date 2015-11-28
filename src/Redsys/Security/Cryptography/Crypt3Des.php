@@ -7,7 +7,7 @@
  * @license MIT License
  */
 
-namespace Redsys\Signature\Cryptography;
+namespace Redsys\Security\Cryptography;
 
 class Crypt3Des
 {
