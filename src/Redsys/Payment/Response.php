@@ -10,108 +10,30 @@
 
 namespace Redsys\Payment;
 
-final class Response implements PaymentInterface
+final class Response extends AbstractPayment implements PaymentInterface
 {
-    /**
-     * @var array
-     */
-    private $parameters;
-
-    /**
-     * @var array
-     */
-    private $customParameters;
-
-    /**
-     * @param array $parameters
-     */
-    public function __construct($parameters = array())
-    {
-        list($default, $custom) = $this->processParameters($parameters);
-        $this->parameters = $default;
-        $this->customParameters = $custom;
-    }
-
-    private function processParameters($parameters = array())
-    {
-        $processed = $custom = array();
-        foreach ($parameters as $field => $value) {
-            if ($this->isCustomField($field)) {
-                $custom[$field] = $value;
-                continue;
-            }
-            $processed[$this->getNormalizedFieldName($field)] = $value;
-        }
-
-        return array($processed, $custom);
-    }
-
-    private function isCustomField($field)
-    {
-        return ("" === $this->getPublicFieldName($field));
-    }
-
-    private function getPublicFieldName($field)
-    {
-        $fields = array_change_key_case(
-            array_combine(self::defaultFields(), self::defaultFields()),
-            CASE_LOWER
-        );
-        $field = strtolower($field);
-
-        return array_key_exists($field, $fields) ? $fields[$field] : "";
-    }
-
-    private function getNormalizedFieldName($field)
-    {
-        return strtolower($field);
-    }
+    const AMOUNT = "Ds_Amount";
+    const AUTHORISATION_CODE = "Ds_AuthorisationCode";
+    const CARD_COUNTRY = "Ds_Card_Country";
+    const CARD_TYPE = "Ds_Card_Type";
+    const CONSUMER_LANGUAGE = "Ds_ConsumerLanguage";
+    const CURRENCY = "Ds_Currency";
+    const DATE = "Ds_Date";
+    const HOUR = "Ds_Hour";
+    const MERCHANT_CODE = "Ds_MerchantCode";
+    const MERCHANT_DATA = "Ds_MerchantData";
+    const ORDER = "Ds_Order";
+    const RESPONSE = "Ds_Response";
+    const SECURE_PAYMENT = "Ds_SecurePayment";
+    const TRANSACTION_TYPE = "Ds_TransactionType";
+    const TERMINAL = "Ds_Terminal";
 
     /**
      * @inheritdoc
      */
-    public function toArray()
+    protected function getDefaultFields()
     {
-        $processed = array();
-        foreach ($this->parameters as $field => $value) {
-            $publicFieldName = $this->getPublicFieldName($field);
-            $processed[$publicFieldName] = $value;
-        }
-        $processed = array_merge($processed, $this->customParameters());
-
-        return $processed;
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function get($name, $default = null)
-    {
-        if (array_key_exists($name, $this->customParameters)) {
-            return $this->customParameters[$name];
-        }
-        $name = strtolower($name);
-        if (array_key_exists($name, $this->parameters)) {
-            return $this->parameters[$name];
-        }
-
-        return $default;
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function customParameters()
-    {
-        return $this->customParameters;
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function hasCustomParameters()
-    {
-        return sizeof($this->customParameters()) > 0;
+        return self::defaultFields();
     }
 
     /**
@@ -120,21 +42,21 @@ final class Response implements PaymentInterface
     public static function defaultFields()
     {
         return array(
-            "Ds_Amount",
-            "Ds_AuthorisationCode",
-            "Ds_Card_Country",
-            "Ds_Card_Type",
-            "Ds_ConsumerLanguage",
-            "Ds_Currency",
-            "Ds_Date",
-            "Ds_Hour",
-            "Ds_MerchantCode",
-            "Ds_MerchantData",
-            "Ds_Order",
-            "Ds_Response",
-            "Ds_SecurePayment",
-            "Ds_TransactionType",
-            "Ds_Terminal",
+            self::AMOUNT,
+            self::AUTHORISATION_CODE,
+            self::CARD_COUNTRY,
+            self::CARD_TYPE,
+            self::CONSUMER_LANGUAGE,
+            self::CURRENCY,
+            self::DATE,
+            self::HOUR,
+            self::MERCHANT_CODE,
+            self::MERCHANT_DATA,
+            self::ORDER,
+            self::RESPONSE,
+            self::SECURE_PAYMENT,
+            self::TRANSACTION_TYPE,
+            self::TERMINAL,
         );
     }
 }
