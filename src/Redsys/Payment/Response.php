@@ -106,7 +106,17 @@ final class Response implements PaymentInterface
         return $this->customParameters;
     }
 
+    /**
+     * @inheritdoc
+     */
+    public function hasCustomParameters()
+    {
+        return sizeof($this->customParameters()) > 0;
+    }
 
+    /**
+     * @inheritdoc
+     */
     public static function defaultFields()
     {
         return array(

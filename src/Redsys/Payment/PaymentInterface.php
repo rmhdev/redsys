@@ -28,4 +28,14 @@ interface PaymentInterface
      * @return array
      */
     public function customParameters();
+
+    /**
+     * @return bool
+     */
+    public function hasCustomParameters();
+
+    /**
+     * @return array
+     */
+    public static function defaultFields();
 }

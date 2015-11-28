@@ -119,4 +119,29 @@ abstract class AbstractTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals($parameters, $request->toArray());
     }
+
+    public function testHasCustomParametersWithNoCustomParametersShouldReturnFalse()
+    {
+        $request = $this->create($this->getDefaultFieldsWithValues());
+
+        $this->assertFalse($request->hasCustomParameters());
+    }
+
+    public function testHasCustomParametersWithCustomParametersShouldReturnTrue()
+    {
+        $request = $this->create(array(
+            "Lorem_Ipsum" => "test"
+        ));
+
+        $this->assertTrue($request->hasCustomParameters());
+    }
+
+    public function testDefaultFieldsShouldReturnListOfAcceptedFieldNames()
+    {
+        $request = $this->create();
+        $this->assertEquals(
+            array_keys($this->getDefaultFieldsWithValues()),
+            $request::defaultFields()
+        );
+    }
 }

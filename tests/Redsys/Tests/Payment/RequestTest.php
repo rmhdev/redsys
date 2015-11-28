@@ -47,44 +47,4 @@ class RequestTest extends AbstractTest
             "Ds_Merchant_UrlKO" => "http://www.example.com/ko",
         );
     }
-
-    public function testDefaultFieldsShouldReturnListOfAcceptedFieldNames()
-    {
-        $this->assertEquals(
-            array_keys($this->getDefaultFieldsWithValues()),
-            Request::defaultFields()
-        );
-    }
-
-
-
-    public function customParameters()
-    {
-        return array(
-            array(
-                array(
-                    "Lorem_Ipsum" => "test"
-                )
-            ),
-        );
-    }
-
-    public function testHasCustomParametersWithNoCustomParametersShouldReturnFalse()
-    {
-        $request = new Request(array(
-            "Ds_Merchant_MerchantCode" => "123456789",
-        ));
-
-        $this->assertFalse($request->hasCustomParameters());
-    }
-
-    public function testHasCustomParametersWithCustomParametersShouldReturnTrue()
-    {
-        $request = new Request(array(
-            "Ds_Merchant_MerchantCode" => "123456789",
-            "Lorem_Ipsum" => "test"
-        ));
-
-        $this->assertTrue($request->hasCustomParameters());
-    }
 }
