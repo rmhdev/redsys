@@ -28,4 +28,10 @@ interface SignatureInterface
      * @return array
      */
     public function decode($text);
+
+    /**
+     * @param string $text
+     * @return string
+     */
+    public function hash($text);
 }

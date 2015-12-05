@@ -16,14 +16,14 @@ class HmacSha256V1 implements SignatureInterface
     /**
      * @var string
      */
-    private $secret;
+    private $key;
 
     /**
-     * @param string $secret
+     * @param string $key
      */
-    public function __construct($secret = "")
+    public function __construct($key = "")
     {
-        $this->secret = $secret;
+        $this->key = $key;
     }
 
     /**
@@ -48,5 +48,10 @@ class HmacSha256V1 implements SignatureInterface
     public function decode($text)
     {
         return json_decode(base64_decode($text), true);
+    }
+
+    public function hash($text)
+    {
+
     }
 }

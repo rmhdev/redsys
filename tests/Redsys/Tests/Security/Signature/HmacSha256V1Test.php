@@ -84,4 +84,23 @@ class HmacSha256V1Test extends \PHPUnit_Framework_TestCase
             $signatureB->decode($encoded)
         );
     }
+
+    public function testHashShouldReturnString()
+    {
+        $signature = new HmacSha256V1($this->secretKey());
+        $parameters = $this->getParameters();
+        $encoded = $signature->encode($this->getParameters());
+
+
+        //$this->assertEquals("j5o68y9T6XrmOWRhTHWW6RDkiMiJjUSqpUHpH5bh008=", $signature->hash($encoded));
+    }
+
+    /**
+     * value taken from documentation
+     * @return string
+     */
+    protected function secretKey()
+    {
+        return "Mk9m98IfEblmPfrpsawt7BmxObt98Jev";
+    }
 }
