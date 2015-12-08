@@ -209,4 +209,24 @@ abstract class AbstractTest extends \PHPUnit_Framework_TestCase
 
         $this->assertTrue($request instanceof \Countable);
     }
+
+    public function testGerOrderWithEmptyObjectShouldReturnNull()
+    {
+        $request = $this->create();
+
+        $this->assertNull($request->getOrder());
+    }
+
+    public function testGerOrderWithShouldReturnString()
+    {
+        $parameters = $this->getDefaultFieldsWithValues();
+        $request = $this->create($parameters);
+
+        $this->assertEquals($parameters[$this->getOrderFieldName()], $request->getOrder());
+    }
+
+    /**
+     * @return string
+     */
+    abstract protected function getOrderFieldName();
 }

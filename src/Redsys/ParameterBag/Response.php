@@ -36,6 +36,11 @@ final class Response extends AbstractParameterBag implements ParameterBagInterfa
         return self::defaultFields();
     }
 
+    public function getOrder()
+    {
+        return $this->get(self::ORDER);
+    }
+
     /**
      * @inheritdoc
      */

@@ -47,4 +47,9 @@ class RequestTest extends AbstractTest
             "Ds_Merchant_UrlKO" => "http://www.example.com/ko",
         );
     }
+
+    protected function getOrderFieldName()
+    {
+        return "Ds_Merchant_Order";
+    }
 }

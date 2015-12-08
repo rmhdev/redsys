@@ -40,6 +40,11 @@ final class Request extends AbstractParameterBag implements ParameterBagInterfac
         return self::defaultFields();
     }
 
+    public function getOrder()
+    {
+        return $this->get(self::ORDER);
+    }
+
     /**
      * @return array
      */

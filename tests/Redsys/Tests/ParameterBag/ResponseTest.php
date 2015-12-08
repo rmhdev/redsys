@@ -43,4 +43,9 @@ class ResponseTest extends AbstractTest
             "Ds_Terminal" => "001",
         );
     }
+
+    protected function getOrderFieldName()
+    {
+        return "Ds_Order";
+    }
 }
