@@ -214,7 +214,7 @@ abstract class AbstractTest extends \PHPUnit_Framework_TestCase
     {
         $request = $this->create();
 
-        $this->assertNull($request->getOrder());
+        $this->assertEmpty($request->getOrder());
     }
 
     public function testGerOrderWithShouldReturnString()

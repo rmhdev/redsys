@@ -49,4 +49,9 @@ interface ParameterBagInterface extends \IteratorAggregate, \Countable
      * @return array
      */
     public static function defaultFields();
+
+    /**
+     * @return string
+     */
+    public function getOrder();
 }
