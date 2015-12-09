@@ -10,6 +10,8 @@
 
 namespace Redsys\Security\Signature;
 
+use Redsys\ParameterBag\ParameterBagInterface;
+
 interface SignatureInterface
 {
     /**
@@ -30,8 +32,8 @@ interface SignatureInterface
     public function decode($text);
 
     /**
-     * @param string $text
+     * @param ParameterBagInterface $parameterBag
      * @return string
      */
-    public function hash($text);
+    public function hash(ParameterBagInterface $parameterBag);
 }

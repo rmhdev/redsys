@@ -9,6 +9,9 @@
 
 namespace Redsys\Security\Signature;
 
+use Redsys\ParameterBag\ParameterBagInterface;
+use Redsys\Security\Cryptography\Crypt3Des;
+
 class HmacSha256V1 implements SignatureInterface
 {
     const NAME = "HMAC_SHA256_V1";
@@ -50,8 +53,15 @@ class HmacSha256V1 implements SignatureInterface
         return json_decode(base64_decode($text), true);
     }
 
-    public function hash($text)
+    /**
+     * @inheritdoc
+     */
+    public function hash(ParameterBagInterface $parameterBag)
     {
+        $ent = $this->encode($parameterBag->all());
+        $crypt = new Crypt3Des(base64_decode($this->key), $parameterBag->getOrder());
+        $res = hash_hmac('sha256', $ent, $crypt->encrypt(), true);
 
+        return base64_encode($res);
     }
 }

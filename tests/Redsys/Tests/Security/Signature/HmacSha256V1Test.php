@@ -10,6 +10,7 @@
 
 namespace Redsys\Tests\Security\Signature;
 
+use Redsys\ParameterBag\Request;
 use Redsys\Security\Signature\HmacSha256V1;
 
 class HmacSha256V1Test extends \PHPUnit_Framework_TestCase
@@ -45,6 +46,18 @@ class HmacSha256V1Test extends \PHPUnit_Framework_TestCase
             "DS_MERCHANT_URLOK" => "",
             "DS_MERCHANT_URLKO" => "",
         );
+//        Array
+//        (
+//            [DS_MERCHANT_AMOUNT] => 145
+//            [DS_MERCHANT_ORDER] => 1234qwerty
+//            [DS_MERCHANT_MERCHANTCODE] => 999008881
+//            [DS_MERCHANT_CURRENCY] => 978
+//            [DS_MERCHANT_TRANSACTIONTYPE] => 0
+//            [DS_MERCHANT_TERMINAL] => 871
+//            [DS_MERCHANT_MERCHANTURL] =>
+//            [DS_MERCHANT_URLOK] =>
+//            [DS_MERCHANT_URLKO] =>
+//        )
     }
 
     private function rawEncode($parameters = array())
@@ -88,11 +101,9 @@ class HmacSha256V1Test extends \PHPUnit_Framework_TestCase
     public function testHashShouldReturnString()
     {
         $signature = new HmacSha256V1($this->secretKey());
-        $parameters = $this->getParameters();
-        $encoded = $signature->encode($this->getParameters());
+        $parameterBag = new Request($this->getParameters());
 
-
-        //$this->assertEquals("j5o68y9T6XrmOWRhTHWW6RDkiMiJjUSqpUHpH5bh008=", $signature->hash($encoded));
+        $this->assertEquals("92PEXmdhI3TXMAYDW/ZG1Q594NirKIWaUmWUO9DcC8U=", $signature->hash($parameterBag));
     }
 
     /**
