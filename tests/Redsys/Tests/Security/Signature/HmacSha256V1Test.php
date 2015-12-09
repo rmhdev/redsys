@@ -46,18 +46,6 @@ class HmacSha256V1Test extends \PHPUnit_Framework_TestCase
             "DS_MERCHANT_URLOK" => "",
             "DS_MERCHANT_URLKO" => "",
         );
-//        Array
-//        (
-//            [DS_MERCHANT_AMOUNT] => 145
-//            [DS_MERCHANT_ORDER] => 1234qwerty
-//            [DS_MERCHANT_MERCHANTCODE] => 999008881
-//            [DS_MERCHANT_CURRENCY] => 978
-//            [DS_MERCHANT_TRANSACTIONTYPE] => 0
-//            [DS_MERCHANT_TERMINAL] => 871
-//            [DS_MERCHANT_MERCHANTURL] =>
-//            [DS_MERCHANT_URLOK] =>
-//            [DS_MERCHANT_URLKO] =>
-//        )
     }
 
     private function rawEncode($parameters = array())
