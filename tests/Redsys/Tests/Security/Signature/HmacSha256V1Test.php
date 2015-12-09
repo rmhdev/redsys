@@ -36,15 +36,15 @@ class HmacSha256V1Test extends \PHPUnit_Framework_TestCase
     private function getParameters()
     {
         return array(
-            "DS_MERCHANT_AMOUNT" => "145",
-            "DS_MERCHANT_ORDER" => "1234qwerty",
-            "DS_MERCHANT_MERCHANTCODE" => "999008881",
-            "DS_MERCHANT_CURRENCY" => "978",
-            "DS_MERCHANT_TRANSACTIONTYPE" => "0",
-            "DS_MERCHANT_TERMINAL" => "871",
-            "DS_MERCHANT_MERCHANTURL" => "",
-            "DS_MERCHANT_URLOK" => "",
-            "DS_MERCHANT_URLKO" => "",
+            "Ds_Merchant_Amount" => "145",
+            "Ds_Merchant_Order" => "1234qwerty",
+            "Ds_Merchant_MerchantCode" => "999008881",
+            "Ds_Merchant_Currency" => "978",
+            "Ds_Merchant_TransactionType" => "0",
+            "Ds_Merchant_Terminal" => "871",
+            "Ds_Merchant_MerchantURL" => "",
+            "Ds_Merchant_UrlOK" => "",
+            "Ds_Merchant_UrlKO" => "",
         );
     }
 
