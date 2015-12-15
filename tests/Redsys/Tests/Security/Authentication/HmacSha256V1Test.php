@@ -8,28 +8,28 @@
  * @license MIT License
  */
 
-namespace Redsys\Tests\Security\Signature;
+namespace Redsys\Tests\Security\authentication;
 
 use Redsys\ParameterBag\Request;
-use Redsys\Security\Signature\HmacSha256V1;
+use Redsys\Security\Authentication\HmacSha256V1;
 
 class HmacSha256V1Test extends \PHPUnit_Framework_TestCase
 {
     public function testGetNameShouldReturnString()
     {
-        $signature = new HmacSha256V1();
+        $authentication = new HmacSha256V1();
 
-        $this->assertEquals("HMAC_SHA256_V1", $signature->getName());
+        $this->assertEquals("HMAC_SHA256_V1", $authentication->getName());
     }
 
     public function testEncodeShouldReturnCodifiedString()
     {
-        $signature = new HmacSha256V1();
+        $authentication = new HmacSha256V1();
         $parameters = $this->getParameters();
 
         $this->assertEquals(
             $this->rawEncode($parameters),
-            $signature->encode($parameters)
+            $authentication->encode($parameters)
         );
     }
 
@@ -55,43 +55,43 @@ class HmacSha256V1Test extends \PHPUnit_Framework_TestCase
 
     public function testDecodeShouldReturnArray()
     {
-        $signature = new HmacSha256V1();
+        $authentication = new HmacSha256V1();
         $parameters = $this->getParameters();
         $encoded = $this->rawEncode($parameters);
 
-        $this->assertEquals($parameters, $signature->decode($encoded));
+        $this->assertEquals($parameters, $authentication->decode($encoded));
     }
 
     public function testEncodeShouldReturnSameResultWithDifferentSecretKeys()
     {
         $parameters = $this->getParameters();
-        $signatureA = new HmacSha256V1();
-        $signatureB = new HmacSha256V1("loremipsum");
+        $authenticationA = new HmacSha256V1();
+        $authenticationB = new HmacSha256V1("loremipsum");
 
         $this->assertEquals(
-            $signatureA->encode($parameters),
-            $signatureB->encode($parameters)
+            $authenticationA->encode($parameters),
+            $authenticationB->encode($parameters)
         );
     }
 
     public function testDecodeShouldReturnSameResultWithDifferentSecretKeys()
     {
         $encoded = $this->rawEncode($this->getParameters());
-        $signatureA = new HmacSha256V1();
-        $signatureB = new HmacSha256V1("loremipsum");
+        $authenticationA = new HmacSha256V1();
+        $authenticationB = new HmacSha256V1("loremipsum");
 
         $this->assertEquals(
-            $signatureA->decode($encoded),
-            $signatureB->decode($encoded)
+            $authenticationA->decode($encoded),
+            $authenticationB->decode($encoded)
         );
     }
 
     public function testHashShouldReturnString()
     {
-        $signature = new HmacSha256V1($this->secretKey());
+        $authentication = new HmacSha256V1($this->secretKey());
         $parameterBag = new Request($this->getParameters());
 
-        $this->assertEquals("92PEXmdhI3TXMAYDW/ZG1Q594NirKIWaUmWUO9DcC8U=", $signature->hash($parameterBag));
+        $this->assertEquals("92PEXmdhI3TXMAYDW/ZG1Q594NirKIWaUmWUO9DcC8U=", $authentication->hash($parameterBag));
     }
 
     /**

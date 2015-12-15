@@ -7,12 +7,12 @@
  * @license MIT License
  */
 
-namespace Redsys\Security\Signature;
+namespace Redsys\Security\Authentication;
 
 use Redsys\ParameterBag\ParameterBagInterface;
 use Redsys\Security\Cryptography\Crypt3Des;
 
-class HmacSha256V1 implements SignatureInterface
+class HmacSha256V1 implements AuthenticationInterface
 {
     const NAME = "HMAC_SHA256_V1";
 

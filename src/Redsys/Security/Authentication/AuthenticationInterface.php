@@ -8,11 +8,11 @@
  * @license MIT License
  */
 
-namespace Redsys\Security\Signature;
+namespace Redsys\Security\Authentication;
 
 use Redsys\ParameterBag\ParameterBagInterface;
 
-interface SignatureInterface
+interface AuthenticationInterface
 {
     /**
      * @return string
