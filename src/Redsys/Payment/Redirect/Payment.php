@@ -10,6 +10,7 @@
 
 namespace Redsys\Payment\Redirect;
 
+use Redsys\ParameterBag\ParameterBagInterface;
 use Redsys\Security\Authentication\AuthenticationInterface;
 
 final class Payment
@@ -19,9 +20,19 @@ final class Payment
      */
     private $authentication;
 
-    public function __construct(AuthenticationInterface $authentication)
+    /**
+     * @var ParameterBagInterface
+     */
+    private $parameterBag;
+
+    /**
+     * @param AuthenticationInterface $authentication
+     * @param ParameterBagInterface $parameterBag
+     */
+    public function __construct(AuthenticationInterface $authentication, ParameterBagInterface $parameterBag)
     {
         $this->authentication = $authentication;
+        $this->parameterBag = $parameterBag;
     }
 
     /**
@@ -30,5 +41,13 @@ final class Payment
     public function getAuthentication()
     {
         return $this->authentication;
+    }
+
+    /**
+     * @return ParameterBagInterface
+     */
+    public function getParameterBag()
+    {
+        return $this->parameterBag;
     }
 }
