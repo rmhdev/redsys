@@ -68,4 +68,18 @@ class PaymentTest extends \PHPUnit_Framework_TestCase
     {
         return "Mk9m98IfEblmPfrpsawt7BmxObt98Jev";
     }
+
+    public function testToArrayShouldReturnFormattedArray()
+    {
+        $authentication = $this->createAuthentication();
+        $parameterBag = $this->createParameterBag();
+        $expected = array(
+            "Ds_SignatureVersion" => $authentication->getName(),
+            "Ds_MerchantParameters" => $authentication->encode($parameterBag->all()),
+            "Ds_Signature" => $authentication->hash($parameterBag),
+        );
+        $request = new Payment($authentication, $parameterBag);
+
+        $this->assertEquals($expected, $request->toArray());
+    }
 }

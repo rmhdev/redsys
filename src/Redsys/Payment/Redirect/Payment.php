@@ -15,6 +15,10 @@ use Redsys\Security\Authentication\AuthenticationInterface;
 
 final class Payment
 {
+    const VERSION = "Ds_SignatureVersion";
+    const PARAMETERS = "Ds_MerchantParameters";
+    const SIGNATURE = "Ds_Signature";
+
     /**
      * @var AuthenticationInterface
      */
@@ -49,5 +53,14 @@ final class Payment
     public function getParameterBag()
     {
         return $this->parameterBag;
+    }
+
+    public function toArray()
+    {
+        return array(
+            self::VERSION => $this->getAuthentication()->getName(),
+            self::PARAMETERS => $this->getAuthentication()->encode($this->getParameterBag()->all()),
+            self::SIGNATURE => $this->getAuthentication()->hash($this->getParameterBag()),
+        );
     }
 }
