@@ -14,12 +14,8 @@ use Redsys\ParameterBag\Response;
 use Redsys\Security\Authentication\AuthenticationFactory;
 use Redsys\Security\Authentication\AuthenticationInterface;
 
-class Notification
+class Notification extends AbstractRedirect
 {
-    const VERSION = "Ds_SignatureVersion";
-    const PARAMETERS = "Ds_MerchantParameters";
-    const SIGNATURE = "Ds_Signature";
-
     /**
      * @var array
      */

@@ -13,12 +13,8 @@ namespace Redsys\Payment\Redirect;
 use Redsys\ParameterBag\ParameterBagInterface;
 use Redsys\Security\Authentication\AuthenticationInterface;
 
-final class Payment
+final class Payment extends AbstractRedirect
 {
-    const VERSION = "Ds_SignatureVersion";
-    const PARAMETERS = "Ds_MerchantParameters";
-    const SIGNATURE = "Ds_Signature";
-
     /**
      * @var AuthenticationInterface
      */
