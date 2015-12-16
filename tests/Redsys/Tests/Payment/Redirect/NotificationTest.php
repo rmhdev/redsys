@@ -10,7 +10,7 @@
 
 namespace Redsys\Tests\Payment\Redirect;
 
-use Redsys\ParameterBag\Response;
+use Redsys\ParameterBag\Response as ParameterBag;
 use Redsys\Payment\Redirect\Notification;
 use Redsys\Security\Authentication\AuthenticationFactory;
 use Redsys\Security\Authentication\HmacSha256V1;
@@ -19,7 +19,7 @@ class NotificationTest extends \PHPUnit_Framework_TestCase
 {
     public function testToArrayOnEmptyNotificationShouldReturnEmptyArray()
     {
-        $notification = new Notification();
+        $notification = new Notification($this->secretKey());
 
         $this->assertEquals(array(), $notification->toArray());
     }
@@ -30,14 +30,14 @@ class NotificationTest extends \PHPUnit_Framework_TestCase
             "Lorem_Ipsum" => "test",
             "Custom_Value" => "1234"
         );
-        $notification = new Notification($parameters);
+        $notification = new Notification($this->secretKey(), $parameters);
 
         $this->assertEquals($parameters, $notification->toArray());
     }
 
     public function testToArrayWithStringShouldReturnGivenArray()
     {
-        $notification = new Notification("test");
+        $notification = new Notification($this->secretKey(), "test");
 
         $this->assertEquals(array("test"), $notification->toArray());
     }
@@ -50,7 +50,7 @@ class NotificationTest extends \PHPUnit_Framework_TestCase
             "Ds_MerchantParameters" => "lorem_ipsum",
             "Ds_Signature" => "1234",
         );
-        $notification = new Notification($notificationValues, $this->secretKey());
+        $notification = new Notification($this->secretKey(), $notificationValues);
 
         $this->assertEquals($expected, $notification->getAuthentication());
     }
@@ -68,13 +68,13 @@ class NotificationTest extends \PHPUnit_Framework_TestCase
     public function testGetParameterBagShouldReturnObject()
     {
         $authentication = $this->createAuthentication();
-        $parameterBag = new Response($this->getNotificationParameters());
+        $parameterBag = new ParameterBag($this->getNotificationParameters());
         $notificationValues = array(
             "Ds_SignatureVersion" => $authentication->getName(),
             "Ds_MerchantParameters" => $authentication->encode($parameterBag->all()),
             "Ds_Signature" => "1234",
         );
-        $notification = new Notification($notificationValues);
+        $notification = new Notification($this->secretKey(), $notificationValues);
 
         $this->assertEquals($parameterBag, $notification->getParameterBag());
     }
@@ -103,13 +103,13 @@ class NotificationTest extends \PHPUnit_Framework_TestCase
     public function testHasCorrectSignatureWithCorrectResponseShouldReturnTrue()
     {
         $authentication = $this->createAuthentication();
-        $parameterBag = new Response($this->getNotificationParameters());
+        $parameterBag = new ParameterBag($this->getNotificationParameters());
         $notificationValues = array(
             "Ds_SignatureVersion" => $authentication->getName(),
             "Ds_MerchantParameters" => $authentication->encode($parameterBag->all()),
             "Ds_Signature" => $authentication->hash($parameterBag),
         );
-        $notification = new Notification($notificationValues, $this->secretKey());
+        $notification = new Notification($this->secretKey(), $notificationValues);
 
         $this->assertTrue($notification->hasCorrectSignature());
     }
@@ -117,13 +117,13 @@ class NotificationTest extends \PHPUnit_Framework_TestCase
     public function testHasCorrectSignatureWithIncorrectResponseShouldReturnFalse()
     {
         $authentication = $this->createAuthentication();
-        $parameterBag = new Response($this->getNotificationParameters());
+        $parameterBag = new ParameterBag($this->getNotificationParameters());
         $notificationValues = array(
             "Ds_SignatureVersion" => $authentication->getName(),
             "Ds_MerchantParameters" => $authentication->encode($parameterBag->all()),
             "Ds_Signature" => "loremipsum123456",
         );
-        $notification = new Notification($notificationValues, $this->secretKey());
+        $notification = new Notification($this->secretKey(), $notificationValues);
 
         $this->assertFalse($notification->hasCorrectSignature());
     }

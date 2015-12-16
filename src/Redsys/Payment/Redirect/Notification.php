@@ -31,10 +31,10 @@ class Notification
     private $key;
 
     /**
-     * @param array $parameters
      * @param string $key
+     * @param array $parameters
      */
-    public function __construct($parameters = array(), $key = "")
+    public function __construct($key, $parameters = array())
     {
         $this->parameters = is_array($parameters) ? $parameters : (array)$parameters;
         $this->key = $key;
