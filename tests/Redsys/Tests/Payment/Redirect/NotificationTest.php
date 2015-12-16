@@ -99,4 +99,32 @@ class NotificationTest extends \PHPUnit_Framework_TestCase
             "Ds_Terminal" => "001",
         );
     }
+
+    public function testHasCorrectSignatureWithCorrectResponseShouldReturnTrue()
+    {
+        $authentication = $this->createAuthentication();
+        $parameterBag = new Response($this->getNotificationParameters());
+        $notificationValues = array(
+            "Ds_SignatureVersion" => $authentication->getName(),
+            "Ds_MerchantParameters" => $authentication->encode($parameterBag->all()),
+            "Ds_Signature" => $authentication->hash($parameterBag),
+        );
+        $notification = new Notification($notificationValues, $this->secretKey());
+
+        $this->assertTrue($notification->hasCorrectSignature());
+    }
+
+    public function testHasCorrectSignatureWithIncorrectResponseShouldReturnFalse()
+    {
+        $authentication = $this->createAuthentication();
+        $parameterBag = new Response($this->getNotificationParameters());
+        $notificationValues = array(
+            "Ds_SignatureVersion" => $authentication->getName(),
+            "Ds_MerchantParameters" => $authentication->encode($parameterBag->all()),
+            "Ds_Signature" => "loremipsum123456",
+        );
+        $notification = new Notification($notificationValues, $this->secretKey());
+
+        $this->assertFalse($notification->hasCorrectSignature());
+    }
 }

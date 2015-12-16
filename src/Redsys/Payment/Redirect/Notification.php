@@ -76,4 +76,12 @@ class Notification
 
         return new Response($authentication->decode($this->getValue(self::PARAMETERS, "")));
     }
+
+    /**
+     * @return bool
+     */
+    public function hasCorrectSignature()
+    {
+        return $this->getValue(self::SIGNATURE, "") === $this->getAuthentication()->hash($this->getParameterBag());
+    }
 }
