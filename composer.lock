@@ -159,18 +159,19 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpspec/prophecy.git",
-                "reference": "e871a2a0cf62b56c36b4781e99b50c6bf08fab77"
+                "reference": "53e967bf312c21f78ec3a19c530d98e1bdb5b26f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpspec/prophecy/zipball/e871a2a0cf62b56c36b4781e99b50c6bf08fab77",
-                "reference": "e871a2a0cf62b56c36b4781e99b50c6bf08fab77",
+                "url": "https://api.github.com/repos/phpspec/prophecy/zipball/53e967bf312c21f78ec3a19c530d98e1bdb5b26f",
+                "reference": "53e967bf312c21f78ec3a19c530d98e1bdb5b26f",
                 "shasum": ""
             },
             "require": {
                 "doctrine/instantiator": "^1.0.2",
                 "phpdocumentor/reflection-docblock": "~2.0",
-                "sebastian/comparator": "~1.1"
+                "sebastian/comparator": "~1.1",
+                "sebastian/recursion-context": "~1.0"
             },
             "require-dev": {
                 "phpspec/phpspec": "~2.0"
@@ -211,7 +212,7 @@
                 "spy",
                 "stub"
             ],
-            "time": "2015-12-10 20:38:17"
+            "time": "2015-12-14 17:14:23"
         },
         {
             "name": "phpunit/php-code-coverage",
@@ -459,12 +460,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "b8c914e8028fae2529f283fd77f7105ff91a30e4"
+                "reference": "d9f7261789f3999778a6ad99d019790c8a0e636e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/b8c914e8028fae2529f283fd77f7105ff91a30e4",
-                "reference": "b8c914e8028fae2529f283fd77f7105ff91a30e4",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/d9f7261789f3999778a6ad99d019790c8a0e636e",
+                "reference": "d9f7261789f3999778a6ad99d019790c8a0e636e",
                 "shasum": ""
             },
             "require": {
@@ -525,7 +526,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2015-12-11 17:49:57"
+            "time": "2015-12-13 21:28:56"
         },
         {
             "name": "phpunit/phpunit-mock-objects",
