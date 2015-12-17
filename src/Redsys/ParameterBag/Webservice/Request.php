@@ -41,6 +41,21 @@ final class Request extends AbstractParameterBag implements ParameterBagInterfac
         return $this->get(self::ORDER, "");
     }
 
+    public function encode()
+    {
+        $writer = new \XMLWriter();
+        $writer->openMemory();
+        $writer->startElement("DATOSENTRADA");
+        foreach ($this->all() as $name => $value) {
+            $writer->startElement($name);
+            $writer->text($value);
+            $writer->endElement();
+        }
+        $writer->endElement();
+
+        return $writer->outputMemory(true);
+    }
+
     /**
      * @return array
      */
