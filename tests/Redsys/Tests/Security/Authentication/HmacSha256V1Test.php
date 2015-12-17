@@ -37,32 +37,6 @@ class HmacSha256V1Test extends \PHPUnit_Framework_TestCase
         );
     }
 
-    private function rawEncode($parameters = array())
-    {
-        return base64_encode(json_encode($parameters));
-    }
-
-    public function testDecodeShouldReturnArray()
-    {
-        $authentication = new HmacSha256V1();
-        $parameters = $this->getParameters();
-        $encoded = $this->rawEncode($parameters);
-
-        $this->assertEquals($parameters, $authentication->decode($encoded));
-    }
-
-    public function testDecodeShouldReturnSameResultWithDifferentSecretKeys()
-    {
-        $encoded = $this->rawEncode($this->getParameters());
-        $authenticationA = new HmacSha256V1();
-        $authenticationB = new HmacSha256V1("loremipsum");
-
-        $this->assertEquals(
-            $authenticationA->decode($encoded),
-            $authenticationB->decode($encoded)
-        );
-    }
-
     public function testHashShouldReturnString()
     {
         $authentication = new HmacSha256V1($this->secretKey());

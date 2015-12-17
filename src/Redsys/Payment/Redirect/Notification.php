@@ -68,9 +68,7 @@ class Notification extends AbstractRedirect
      */
     public function getParameterBag()
     {
-        $authentication = $this->getAuthentication();
-
-        return new Response($authentication->decode($this->getValue(self::PARAMETERS, "")));
+        return Response::createFromEncoded($this->getValue(self::PARAMETERS, ""));
     }
 
     /**

@@ -20,12 +20,6 @@ interface AuthenticationInterface
     public function getName();
 
     /**
-     * @param string $text
-     * @return array
-     */
-    public function decode($text);
-
-    /**
      * @param ParameterBagInterface $parameterBag
      * @return string
      */

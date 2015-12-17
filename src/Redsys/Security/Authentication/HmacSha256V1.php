@@ -40,14 +40,6 @@ class HmacSha256V1 implements AuthenticationInterface
     /**
      * @inheritdoc
      */
-    public function decode($text)
-    {
-        return json_decode(base64_decode($text), true);
-    }
-
-    /**
-     * @inheritdoc
-     */
     public function hash(ParameterBagInterface $parameterBag)
     {
         $ent = $parameterBag->encode();
