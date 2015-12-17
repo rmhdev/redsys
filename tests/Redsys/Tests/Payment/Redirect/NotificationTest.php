@@ -71,7 +71,7 @@ class NotificationTest extends \PHPUnit_Framework_TestCase
         $parameterBag = new ParameterBag($this->getNotificationParameters());
         $notificationValues = array(
             "Ds_SignatureVersion" => $authentication->getName(),
-            "Ds_MerchantParameters" => $authentication->encode($parameterBag->all()),
+            "Ds_MerchantParameters" => $parameterBag->encode(),
             "Ds_Signature" => "1234",
         );
         $notification = new Notification($this->secretKey(), $notificationValues);
@@ -106,7 +106,7 @@ class NotificationTest extends \PHPUnit_Framework_TestCase
         $parameterBag = new ParameterBag($this->getNotificationParameters());
         $notificationValues = array(
             "Ds_SignatureVersion" => $authentication->getName(),
-            "Ds_MerchantParameters" => $authentication->encode($parameterBag->all()),
+            "Ds_MerchantParameters" => $parameterBag->encode(),
             "Ds_Signature" => $authentication->hash($parameterBag),
         );
         $notification = new Notification($this->secretKey(), $notificationValues);
@@ -120,7 +120,7 @@ class NotificationTest extends \PHPUnit_Framework_TestCase
         $parameterBag = new ParameterBag($this->getNotificationParameters());
         $notificationValues = array(
             "Ds_SignatureVersion" => $authentication->getName(),
-            "Ds_MerchantParameters" => $authentication->encode($parameterBag->all()),
+            "Ds_MerchantParameters" => $parameterBag->encode(),
             "Ds_Signature" => "loremipsum123456",
         );
         $notification = new Notification($this->secretKey(), $notificationValues);

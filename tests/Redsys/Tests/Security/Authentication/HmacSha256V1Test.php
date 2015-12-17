@@ -22,17 +22,6 @@ class HmacSha256V1Test extends \PHPUnit_Framework_TestCase
         $this->assertEquals("HMAC_SHA256_V1", $authentication->getName());
     }
 
-    public function testEncodeShouldReturnCodifiedString()
-    {
-        $authentication = new HmacSha256V1();
-        $parameters = $this->getParameters();
-
-        $this->assertEquals(
-            $this->rawEncode($parameters),
-            $authentication->encode($parameters)
-        );
-    }
-
     private function getParameters()
     {
         return array(
@@ -60,18 +49,6 @@ class HmacSha256V1Test extends \PHPUnit_Framework_TestCase
         $encoded = $this->rawEncode($parameters);
 
         $this->assertEquals($parameters, $authentication->decode($encoded));
-    }
-
-    public function testEncodeShouldReturnSameResultWithDifferentSecretKeys()
-    {
-        $parameters = $this->getParameters();
-        $authenticationA = new HmacSha256V1();
-        $authenticationB = new HmacSha256V1("loremipsum");
-
-        $this->assertEquals(
-            $authenticationA->encode($parameters),
-            $authenticationB->encode($parameters)
-        );
     }
 
     public function testDecodeShouldReturnSameResultWithDifferentSecretKeys()

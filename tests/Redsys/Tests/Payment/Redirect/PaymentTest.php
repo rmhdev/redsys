@@ -75,7 +75,7 @@ class PaymentTest extends \PHPUnit_Framework_TestCase
         $parameterBag = $this->createParameterBag();
         $expected = array(
             "Ds_SignatureVersion" => $authentication->getName(),
-            "Ds_MerchantParameters" => $authentication->encode($parameterBag->all()),
+            "Ds_MerchantParameters" => $parameterBag->encode(),
             "Ds_Signature" => $authentication->hash($parameterBag),
         );
         $request = new Payment($authentication, $parameterBag);

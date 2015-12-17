@@ -40,14 +40,6 @@ class HmacSha256V1 implements AuthenticationInterface
     /**
      * @inheritdoc
      */
-    public function encode($parameters = array())
-    {
-        return base64_encode(json_encode($parameters));
-    }
-
-    /**
-     * @inheritdoc
-     */
     public function decode($text)
     {
         return json_decode(base64_decode($text), true);
@@ -58,7 +50,7 @@ class HmacSha256V1 implements AuthenticationInterface
      */
     public function hash(ParameterBagInterface $parameterBag)
     {
-        $ent = $this->encode($parameterBag->all());
+        $ent = $parameterBag->encode();
         $crypt = new Crypt3Des(base64_decode($this->key), $parameterBag->getOrder());
         $res = hash_hmac('sha256', $ent, $crypt->encrypt(), true);
 

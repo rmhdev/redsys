@@ -55,7 +55,7 @@ final class Payment extends AbstractRedirect
     {
         return array(
             self::VERSION => $this->getAuthentication()->getName(),
-            self::PARAMETERS => $this->getAuthentication()->encode($this->getParameterBag()->all()),
+            self::PARAMETERS => $this->getParameterBag()->encode(),
             self::SIGNATURE => $this->getAuthentication()->hash($this->getParameterBag()),
         );
     }
