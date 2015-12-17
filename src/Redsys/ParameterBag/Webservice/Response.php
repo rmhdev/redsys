@@ -44,6 +44,19 @@ final class Response extends AbstractParameterBag implements ParameterBagInterfa
         return $this->get(self::ORDER, "");
     }
 
+    public function encode()
+    {
+        return implode("", array(
+            $this->get(self::AMOUNT),
+            $this->get(self::ORDER),
+            $this->get(self::MERCHANT_CODE),
+            $this->get(self::CURRENCY),
+            $this->get(self::RESPONSE),
+            $this->get(self::TRANSACTION_TYPE),
+            $this->get(self::SECURE_PAYMENT),
+        ));
+    }
+
     /**
      * @inheritdoc
      */
