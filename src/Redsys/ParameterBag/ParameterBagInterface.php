@@ -59,4 +59,10 @@ interface ParameterBagInterface extends \IteratorAggregate, \Countable
      * @return string
      */
     public function encode();
+
+    /**
+     * @param string $encoded
+     * @return self
+     */
+    public static function createFromEncoded($encoded);
 }

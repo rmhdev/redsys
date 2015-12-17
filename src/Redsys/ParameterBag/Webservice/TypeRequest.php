@@ -54,6 +54,9 @@ final class TypeRequest extends AbstractParameterBag implements ParameterBagInte
         return $writer->outputMemory(true);
     }
 
+    /**
+     * @inheritdoc
+     */
     public static function createFromEncoded($encoded)
     {
         $simpleXml = simplexml_load_string($encoded);

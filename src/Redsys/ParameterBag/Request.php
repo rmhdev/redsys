@@ -53,6 +53,9 @@ final class Request extends AbstractParameterBag implements ParameterBagInterfac
         return base64_encode(json_encode($this->all()));
     }
 
+    /**
+     * @inheritdoc
+     */
     public static function createFromEncoded($encoded)
     {
         return new self(json_decode(base64_decode($encoded), true));

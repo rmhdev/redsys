@@ -60,6 +60,9 @@ final class RecurrentRequest extends AbstractParameterBag implements ParameterBa
         return $writer->outputMemory(true);
     }
 
+    /**
+     * @inheritdoc
+     */
     public static function createFromEncoded($encoded)
     {
         $simpleXml = simplexml_load_string($encoded);

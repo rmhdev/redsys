@@ -57,6 +57,9 @@ final class Response extends AbstractParameterBag implements ParameterBagInterfa
         ));
     }
 
+    /**
+     * @inheritdoc
+     */
     public static function createFromEncoded($encoded)
     {
         $simpleXml = simplexml_load_string($encoded);
