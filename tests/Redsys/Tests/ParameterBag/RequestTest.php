@@ -52,4 +52,15 @@ class RequestTest extends AbstractTest
     {
         return "Ds_Merchant_Order";
     }
+
+    public function testEncodeShouldReturnCodifiedString()
+    {
+        $parameters = $this->getDefaultFieldsWithValues();
+        $parameterBag = $this->create($parameters);
+
+        $this->assertEquals(
+            base64_encode(json_encode($parameters)),
+            $parameterBag->encode()
+        );
+    }
 }

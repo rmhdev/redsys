@@ -44,6 +44,11 @@ final class Response extends AbstractParameterBag implements ParameterBagInterfa
         return $this->get(self::ORDER, "");
     }
 
+    public function encode()
+    {
+        return base64_encode(json_encode($this->all()));
+    }
+
     /**
      * @inheritdoc
      */

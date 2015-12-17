@@ -48,6 +48,11 @@ final class Request extends AbstractParameterBag implements ParameterBagInterfac
         return $this->get(self::ORDER, "");
     }
 
+    public function encode()
+    {
+        return base64_encode(json_encode($this->all()));
+    }
+
     /**
      * @return array
      */
