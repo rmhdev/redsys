@@ -239,4 +239,11 @@ abstract class AbstractTest extends \PHPUnit_Framework_TestCase
     }
 
     abstract protected function getDefaultExpectedEncode();
+
+    public function testCreateFromEncodedShouldReturnNewObject()
+    {
+        $expected = $this->create($this->getDefaultFieldsWithValues());
+
+        $this->assertEquals($expected, $expected::createFromEncoded($this->getDefaultExpectedEncode()));
+    }
 }

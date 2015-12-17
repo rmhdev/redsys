@@ -57,6 +57,19 @@ final class Response extends AbstractParameterBag implements ParameterBagInterfa
         ));
     }
 
+    public static function createFromEncoded($encoded)
+    {
+        $simpleXml = simplexml_load_string($encoded);
+        $result = array(
+            self::CODE => (string)$simpleXml->CODIGO[0]
+        );
+        foreach ($simpleXml->OPERACION as $name => $value) {
+            $result = array_merge($result, (array)$value);
+        }
+
+        return new self($result);
+    }
+
     /**
      * @inheritdoc
      */

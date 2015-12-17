@@ -49,6 +49,11 @@ final class Response extends AbstractParameterBag implements ParameterBagInterfa
         return base64_encode(json_encode($this->all()));
     }
 
+    public static function createFromEncoded($encoded)
+    {
+        return new self(json_decode(base64_decode($encoded), true));
+    }
+
     /**
      * @inheritdoc
      */
