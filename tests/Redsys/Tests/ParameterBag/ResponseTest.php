@@ -49,14 +49,8 @@ class ResponseTest extends AbstractTest
         return "Ds_Order";
     }
 
-    public function testEncodeShouldReturnCodifiedString()
+    protected function getDefaultExpectedEncode()
     {
-        $parameters = $this->getDefaultFieldsWithValues();
-        $parameterBag = $this->create($parameters);
-
-        $this->assertEquals(
-            base64_encode(json_encode($parameters)),
-            $parameterBag->encode()
-        );
+        return base64_encode(json_encode($this->getDefaultFieldsWithValues()));
     }
 }

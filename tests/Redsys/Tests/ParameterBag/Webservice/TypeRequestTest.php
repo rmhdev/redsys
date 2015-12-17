@@ -42,7 +42,7 @@ class TypeRequestTest extends AbstractTest
         return "Ds_Merchant_Order";
     }
 
-    public function testEncodeShouldReturnCodifiedString()
+    protected function getDefaultExpectedEncode()
     {
         $expected = "<DATOSENTRADA>";
         $expected .= "<Ds_Merchant_Amount>10025</Ds_Merchant_Amount>";
@@ -54,8 +54,6 @@ class TypeRequestTest extends AbstractTest
         $expected .= "<Ds_Merchant_TransactionType>0</Ds_Merchant_TransactionType>";
         $expected .= "</DATOSENTRADA>";
 
-        $parameterBag = $this->create($this->getDefaultFieldsWithValues());
-
-        $this->assertEquals($expected, $parameterBag->encode());
+        return $expected;
     }
 }

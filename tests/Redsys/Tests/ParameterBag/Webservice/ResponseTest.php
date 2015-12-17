@@ -47,11 +47,9 @@ class ResponseTest extends AbstractTest
         return "Ds_Order";
     }
 
-    public function testEncodeShouldReturnCodifiedString()
+    protected function getDefaultExpectedEncode()
     {
-        $parameters = $this->getDefaultFieldsWithValues();
-        $parameterBag = $this->create($parameters);
-        $expected = implode(
+        return implode(
             array(
                 "10025",        // amount
                 "1234qwerty",   // order
@@ -62,7 +60,5 @@ class ResponseTest extends AbstractTest
                 "1",            // secure payment
             )
         );
-
-        $this->assertEquals($expected, $parameterBag->encode());
     }
 }

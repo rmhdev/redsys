@@ -229,4 +229,14 @@ abstract class AbstractTest extends \PHPUnit_Framework_TestCase
      * @return string
      */
     abstract protected function getOrderFieldName();
+
+    public function testEncodeShouldReturnCodifiedString()
+    {
+        $parameters = $this->getDefaultFieldsWithValues();
+        $parameterBag = $this->create($parameters);
+
+        $this->assertEquals($this->getDefaultExpectedEncode(), $parameterBag->encode());
+    }
+
+    abstract protected function getDefaultExpectedEncode();
 }

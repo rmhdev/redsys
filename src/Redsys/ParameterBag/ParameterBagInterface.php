@@ -54,4 +54,9 @@ interface ParameterBagInterface extends \IteratorAggregate, \Countable
      * @return string
      */
     public function getOrder();
+
+    /**
+     * @return string
+     */
+    public function encode();
 }
