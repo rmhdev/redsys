@@ -8,15 +8,15 @@
  * @license MIT License
  */
 
-namespace Redsys\Tests\Transaction\Redirect;
+namespace Redsys\Tests\Transaction\Redirect\Payment;
 
 use Redsys\ParameterBag\ParameterBagInterface;
 use Redsys\ParameterBag\Request as ParameterBag;
-use Redsys\Transaction\Redirect\Payment;
+use Redsys\Transaction\Redirect\Payment\Transaction as Payment;
 use Redsys\Security\Authentication\AuthenticationInterface;
 use Redsys\Tests\Transaction\AbstractTransactionTest;
 
-class PaymentTest extends AbstractTransactionTest
+class TransactionTest extends AbstractTransactionTest
 {
     protected function createTransaction(AuthenticationInterface $authentication, ParameterBagInterface $parameterBag)
     {

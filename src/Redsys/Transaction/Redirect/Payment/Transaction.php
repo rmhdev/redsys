@@ -8,12 +8,12 @@
  * @license MIT License
  */
 
-namespace Redsys\Transaction\Redirect;
+namespace Redsys\Transaction\Redirect\Payment;
 
 use Redsys\Transaction\AbstractTransaction;
 use Redsys\Transaction\TransactionInterface;
 
-final class Payment extends AbstractTransaction implements TransactionInterface
+final class Transaction extends AbstractTransaction implements TransactionInterface
 {
     /**
      * @inheritdoc
