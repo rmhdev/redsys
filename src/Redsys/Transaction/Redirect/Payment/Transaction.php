@@ -15,6 +15,8 @@ use Redsys\Transaction\TransactionInterface;
 
 final class Transaction extends AbstractTransaction implements TransactionInterface
 {
+    const PARAMETERS = "Ds_MerchantParameters";
+
     /**
      * @inheritdoc
      */

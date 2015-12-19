@@ -15,7 +15,6 @@ use Redsys\Security\Authentication\AuthenticationInterface;
 abstract class AbstractTransaction implements TransactionInterface
 {
     const VERSION = "Ds_SignatureVersion";
-    const PARAMETERS = "Ds_MerchantParameters";
     const SIGNATURE = "Ds_Signature";
 
     /**
