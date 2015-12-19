@@ -8,7 +8,7 @@
  * @license MIT License
  */
 
-namespace Redsys\Tests\Payment\Redirect;
+namespace Redsys\Tests\Transaction\Redirect;
 
 use Redsys\ParameterBag\Response as ParameterBag;
 use Redsys\Payment\Redirect\Notification;

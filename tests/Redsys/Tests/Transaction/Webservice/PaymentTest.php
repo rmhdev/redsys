@@ -8,13 +8,13 @@
  * @license MIT License
  */
 
-namespace Redsys\Tests\Payment\Webservice;
+namespace Redsys\Tests\Transaction\Webservice;
 
 use Redsys\ParameterBag\Webservice\Request as ParameterBag;
-use Redsys\Payment\Webservice\RecurrentPayment as Payment;
+use Redsys\Payment\Webservice\DefaultPayment as Payment;
 use Redsys\Security\Authentication\AuthenticationFactory;
 
-class RecurrentPaymentTest extends \PHPUnit_Framework_TestCase
+class PaymentTest extends \PHPUnit_Framework_TestCase
 {
     public function testGetAuthenticationShouldReturnObject()
     {
@@ -43,18 +43,14 @@ class RecurrentPaymentTest extends \PHPUnit_Framework_TestCase
     {
         return new ParameterBag(array(
             "Ds_Merchant_Amount" => "10025",
-            "Ds_Merchant_ChargeExpiryDate" => "2016-09-27",
             "Ds_Merchant_Currency" => "978",
-            "Ds_Merchant_Cvv2" => "123",
-            "Ds_Merchant_DateFrecuency" => "123",
-            "Ds_Merchant_ExpiryDate" => "1709",
             "Ds_Merchant_MerchantCode" => "1234abcde",
             "Ds_Merchant_Order" => "1234qwerty",
-            "Ds_Merchant_Pan" => "4444111122223333",
-            "Ds_Merchant_SumTotal" => "123",
             "Ds_Merchant_Terminal" => "001",
-            "Ds_Merchant_TransactionDate" => "2016-09-27",
             "Ds_Merchant_TransactionType" => "0",
+            "Ds_Merchant_Pan" => "4444111122223333",
+            "Ds_Merchant_ExpiryDate" => "1709",
+            "Ds_Merchant_Cvv2" => "123",
         ));
     }
 

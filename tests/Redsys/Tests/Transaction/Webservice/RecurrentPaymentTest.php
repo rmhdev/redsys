@@ -8,13 +8,13 @@
  * @license MIT License
  */
 
-namespace Redsys\Tests\Payment\Webservice;
+namespace Redsys\Tests\Transaction\Webservice;
 
-use Redsys\ParameterBag\Webservice\TypeRequest as ParameterBag;
-use Redsys\Payment\Webservice\OtherPayment as Payment;
+use Redsys\ParameterBag\Webservice\Request as ParameterBag;
+use Redsys\Payment\Webservice\RecurrentPayment as Payment;
 use Redsys\Security\Authentication\AuthenticationFactory;
 
-class OtherPaymentTest extends \PHPUnit_Framework_TestCase
+class RecurrentPaymentTest extends \PHPUnit_Framework_TestCase
 {
     public function testGetAuthenticationShouldReturnObject()
     {
@@ -68,7 +68,7 @@ class OtherPaymentTest extends \PHPUnit_Framework_TestCase
         $authentication = $this->createAuthentication();
         $parameterBag = $this->createParameterBag();
         $expected = array(
-            "Ds_SignatureVersionw" => $authentication->getName(),
+            "Ds_SignatureVersion" => $authentication->getName(),
             "DatosEntrada" => $parameterBag->all(),
             "Ds_Signature" => $authentication->hash($parameterBag),
         );

@@ -8,51 +8,46 @@
  * @license MIT License
  */
 
-namespace Redsys\Tests\Payment\Webservice;
+namespace Redsys\Tests\Transaction;
 
-use Redsys\ParameterBag\Webservice\Request as ParameterBag;
-use Redsys\Payment\Webservice\DefaultPayment as Payment;
-use Redsys\Security\Authentication\AuthenticationFactory;
+use Redsys\ParameterBag\ParameterBagInterface;
+use Redsys\Security\Authentication\AuthenticationInterface;
+use Redsys\Security\Authentication\HmacSha256V1;
 
-class DefaultPaymentTest extends \PHPUnit_Framework_TestCase
+abstract class AbstractTransactionTest extends \PHPUnit_Framework_TestCase
 {
     public function testGetAuthenticationShouldReturnObject()
     {
         $parameterBag = $this->createParameterBag();
         $authentication = $this->createAuthentication();
-        $request = new Payment($authentication, $parameterBag);
+        $request = $this->createTransaction($authentication, $parameterBag);
 
         $this->assertEquals($authentication, $request->getAuthentication());
     }
+
+    abstract protected function createTransaction(
+        AuthenticationInterface $authentication,
+        ParameterBagInterface $parameterBag
+    );
 
     public function testGetParameterBagShouldReturnObject()
     {
         $authentication = $this->createAuthentication();
         $parameterBag = $this->createParameterBag();
-        $request = new Payment($authentication, $parameterBag);
+        $request = $this->createTransaction($authentication, $parameterBag);
 
         $this->assertEquals($parameterBag, $request->getParameterBag());
     }
 
     protected function createAuthentication()
     {
-        return AuthenticationFactory::create("HMAC_SHA256_V1", $this->secretKey());
+        return new HmacSha256V1($this->secretKey());
     }
 
-    protected function createParameterBag()
-    {
-        return new ParameterBag(array(
-            "Ds_Merchant_Amount" => "10025",
-            "Ds_Merchant_Currency" => "978",
-            "Ds_Merchant_MerchantCode" => "1234abcde",
-            "Ds_Merchant_Order" => "1234qwerty",
-            "Ds_Merchant_Terminal" => "001",
-            "Ds_Merchant_TransactionType" => "0",
-            "Ds_Merchant_Pan" => "4444111122223333",
-            "Ds_Merchant_ExpiryDate" => "1709",
-            "Ds_Merchant_Cvv2" => "123",
-        ));
-    }
+    /**
+     * @return ParameterBagInterface
+     */
+    abstract protected function createParameterBag();
 
     protected function secretKey()
     {
@@ -63,13 +58,15 @@ class DefaultPaymentTest extends \PHPUnit_Framework_TestCase
     {
         $authentication = $this->createAuthentication();
         $parameterBag = $this->createParameterBag();
+        $transaction = $this->createTransaction($authentication, $parameterBag);
         $expected = array(
             "Ds_SignatureVersion" => $authentication->getName(),
-            "DatosEntrada" => $parameterBag->all(),
+            "Ds_MerchantParameters" => $this->expectedTransactionValue($parameterBag),
             "Ds_Signature" => $authentication->hash($parameterBag),
         );
-        $request = new Payment($authentication, $parameterBag);
 
-        $this->assertEquals($expected, $request->toArray());
+        $this->assertEquals($expected, $transaction->toArray(), get_class($transaction));
     }
+
+    abstract protected function expectedTransactionValue(ParameterBagInterface $parameterBag);
 }
