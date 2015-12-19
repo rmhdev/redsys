@@ -7,7 +7,7 @@
  * @license MIT License
  */
 
-namespace Redsys\Payment\Redirect;
+namespace Redsys\Transaction\Redirect;
 
 abstract class AbstractRedirect
 {

@@ -12,7 +12,7 @@ namespace Redsys\Tests\Transaction\Redirect;
 
 use Redsys\ParameterBag\ParameterBagInterface;
 use Redsys\ParameterBag\Request as ParameterBag;
-use Redsys\Payment\Redirect\Payment;
+use Redsys\Transaction\Redirect\Payment;
 use Redsys\Security\Authentication\AuthenticationInterface;
 use Redsys\Tests\Transaction\AbstractTransactionTest;
 

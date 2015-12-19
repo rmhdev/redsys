@@ -11,7 +11,7 @@
 namespace Redsys\Tests\Transaction\Redirect;
 
 use Redsys\ParameterBag\Response as ParameterBag;
-use Redsys\Payment\Redirect\Notification;
+use Redsys\Transaction\Redirect\Notification;
 use Redsys\Security\Authentication\AuthenticationFactory;
 use Redsys\Security\Authentication\HmacSha256V1;
 

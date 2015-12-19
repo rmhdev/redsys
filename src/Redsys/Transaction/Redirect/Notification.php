@@ -8,7 +8,7 @@
  * @license MIT License
  */
 
-namespace Redsys\Payment\Redirect;
+namespace Redsys\Transaction\Redirect;
 
 use Redsys\ParameterBag\Response;
 use Redsys\Security\Authentication\AuthenticationFactory;

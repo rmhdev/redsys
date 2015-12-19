@@ -8,15 +8,15 @@
  * @license MIT License
  */
 
-namespace Redsys\Payment\Webservice;
+namespace Redsys\Transaction;
 
 use Redsys\ParameterBag\ParameterBagInterface;
 use Redsys\Security\Authentication\AuthenticationInterface;
 
-final class OtherPayment
+abstract class AbstractTransaction implements TransactionInterface
 {
     const VERSION = "Ds_SignatureVersion";
-    const PARAMETERS = "DatosEntrada";
+    const PARAMETERS = "Ds_MerchantParameters";
     const SIGNATURE = "Ds_Signature";
 
     /**
@@ -40,7 +40,7 @@ final class OtherPayment
     }
 
     /**
-     * @return AuthenticationInterface
+     * @inheritdoc
      */
     public function getAuthentication()
     {
@@ -48,19 +48,10 @@ final class OtherPayment
     }
 
     /**
-     * @return ParameterBagInterface
+     * @inheritdoc
      */
     public function getParameterBag()
     {
         return $this->parameterBag;
-    }
-
-    public function toArray()
-    {
-        return array(
-            self::VERSION => $this->getAuthentication()->getName(),
-            self::PARAMETERS => $this->getParameterBag()->all(),
-            self::SIGNATURE => $this->getAuthentication()->hash($this->getParameterBag()),
-        );
     }
 }

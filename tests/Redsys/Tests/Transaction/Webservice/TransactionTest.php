@@ -11,7 +11,7 @@
 namespace Redsys\Tests\Payment\Webservice;
 
 use Redsys\ParameterBag\Webservice\TypeRequest as ParameterBag;
-use Redsys\Payment\Webservice\OtherPayment as Payment;
+use Redsys\Transaction\Webservice\OtherPayment as Payment;
 use Redsys\Security\Authentication\AuthenticationFactory;
 
 class TransactionTest extends \PHPUnit_Framework_TestCase

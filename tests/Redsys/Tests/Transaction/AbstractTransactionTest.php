@@ -13,6 +13,7 @@ namespace Redsys\Tests\Transaction;
 use Redsys\ParameterBag\ParameterBagInterface;
 use Redsys\Security\Authentication\AuthenticationInterface;
 use Redsys\Security\Authentication\HmacSha256V1;
+use Redsys\Transaction\TransactionInterface;
 
 abstract class AbstractTransactionTest extends \PHPUnit_Framework_TestCase
 {
@@ -25,6 +26,11 @@ abstract class AbstractTransactionTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($authentication, $request->getAuthentication());
     }
 
+    /**
+     * @param AuthenticationInterface $authentication
+     * @param ParameterBagInterface $parameterBag
+     * @return TransactionInterface
+     */
     abstract protected function createTransaction(
         AuthenticationInterface $authentication,
         ParameterBagInterface $parameterBag
