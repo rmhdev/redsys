@@ -10,11 +10,11 @@
 
 namespace Redsys\Tests\Transaction\Webservice\Other;
 
+use Redsys\Tests\Transaction\AbstractParameterBagTest;
 use Redsys\Transaction\ParameterBagInterface;
 use Redsys\Transaction\Webservice\Other\ParameterBag;
-use Redsys\Tests\ParameterBag\AbstractTest;
 
-class ParameterBagTest extends AbstractTest
+class ParameterBagTest extends AbstractParameterBagTest
 {
     /**
      * @param array $parameters
