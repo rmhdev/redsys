@@ -46,11 +46,6 @@ interface ParameterBagInterface extends \IteratorAggregate, \Countable
     public function hasCustom();
 
     /**
-     * @return array
-     */
-    public static function defaultFields();
-
-    /**
      * @return string
      */
     public function getOrder();
@@ -59,6 +54,11 @@ interface ParameterBagInterface extends \IteratorAggregate, \Countable
      * @return string
      */
     public function encode();
+
+    /**
+     * @return array
+     */
+    public static function defaultFields();
 
     /**
      * @param string $encoded
