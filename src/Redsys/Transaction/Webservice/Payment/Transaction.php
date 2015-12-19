@@ -8,12 +8,12 @@
  * @license MIT License
  */
 
-namespace Redsys\Transaction\Webservice;
+namespace Redsys\Transaction\Webservice\Payment;
 
 use Redsys\Transaction\AbstractTransaction;
 use Redsys\Transaction\TransactionInterface;
 
-final class OtherPayment extends AbstractTransaction implements TransactionInterface
+final class Transaction extends AbstractTransaction implements TransactionInterface
 {
     const PARAMETERS = "DatosEntrada";
 

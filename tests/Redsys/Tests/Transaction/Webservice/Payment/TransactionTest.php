@@ -8,30 +8,30 @@
  * @license MIT License
  */
 
-namespace Redsys\Tests\Transaction\Webservice;
+namespace Redsys\Tests\Transaction\Webservice\Payment;
 
 use Redsys\ParameterBag\Webservice\Request as ParameterBag;
-use Redsys\Transaction\Webservice\DefaultPayment as Payment;
+use Redsys\Transaction\Webservice\Payment\Transaction as Payment;
 use Redsys\Security\Authentication\AuthenticationFactory;
 
-class PaymentTest extends \PHPUnit_Framework_TestCase
+class TransactionTest extends \PHPUnit_Framework_TestCase
 {
     public function testGetAuthenticationShouldReturnObject()
     {
         $parameterBag = $this->createParameterBag();
         $authentication = $this->createAuthentication();
-        $request = new Payment($authentication, $parameterBag);
+        $transaction = new Payment($authentication, $parameterBag);
 
-        $this->assertEquals($authentication, $request->getAuthentication());
+        $this->assertEquals($authentication, $transaction->getAuthentication());
     }
 
     public function testGetParameterBagShouldReturnObject()
     {
         $authentication = $this->createAuthentication();
         $parameterBag = $this->createParameterBag();
-        $request = new Payment($authentication, $parameterBag);
+        $transaction = new Payment($authentication, $parameterBag);
 
-        $this->assertEquals($parameterBag, $request->getParameterBag());
+        $this->assertEquals($parameterBag, $transaction->getParameterBag());
     }
 
     protected function createAuthentication()
@@ -68,8 +68,8 @@ class PaymentTest extends \PHPUnit_Framework_TestCase
             "DatosEntrada" => $parameterBag->all(),
             "Ds_Signature" => $authentication->hash($parameterBag),
         );
-        $request = new Payment($authentication, $parameterBag);
+        $transaction = new Payment($authentication, $parameterBag);
 
-        $this->assertEquals($expected, $request->toArray());
+        $this->assertEquals($expected, $transaction->toArray());
     }
 }

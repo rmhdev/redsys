@@ -21,9 +21,9 @@ abstract class AbstractTransactionTest extends \PHPUnit_Framework_TestCase
     {
         $parameterBag = $this->createParameterBag();
         $authentication = $this->createAuthentication();
-        $request = $this->createTransaction($authentication, $parameterBag);
+        $transaction = $this->createTransaction($authentication, $parameterBag);
 
-        $this->assertEquals($authentication, $request->getAuthentication());
+        $this->assertEquals($authentication, $transaction->getAuthentication());
     }
 
     /**
@@ -40,9 +40,9 @@ abstract class AbstractTransactionTest extends \PHPUnit_Framework_TestCase
     {
         $authentication = $this->createAuthentication();
         $parameterBag = $this->createParameterBag();
-        $request = $this->createTransaction($authentication, $parameterBag);
+        $transaction = $this->createTransaction($authentication, $parameterBag);
 
-        $this->assertEquals($parameterBag, $request->getParameterBag());
+        $this->assertEquals($parameterBag, $transaction->getParameterBag());
     }
 
     protected function createAuthentication()

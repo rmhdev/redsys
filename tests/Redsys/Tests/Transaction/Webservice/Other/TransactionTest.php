@@ -8,10 +8,10 @@
  * @license MIT License
  */
 
-namespace Redsys\Tests\Payment\Webservice;
+namespace Redsys\Tests\Payment\Webservice\Other;
 
 use Redsys\ParameterBag\Webservice\TypeRequest as ParameterBag;
-use Redsys\Transaction\Webservice\OtherPayment as Payment;
+use Redsys\Transaction\Webservice\Other\Transaction as Payment;
 use Redsys\Security\Authentication\AuthenticationFactory;
 
 class TransactionTest extends \PHPUnit_Framework_TestCase
