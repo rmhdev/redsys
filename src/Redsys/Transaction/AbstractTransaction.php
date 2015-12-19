@@ -10,7 +10,6 @@
 
 namespace Redsys\Transaction;
 
-use Redsys\ParameterBag\ParameterBagInterface;
 use Redsys\Security\Authentication\AuthenticationInterface;
 
 abstract class AbstractTransaction implements TransactionInterface

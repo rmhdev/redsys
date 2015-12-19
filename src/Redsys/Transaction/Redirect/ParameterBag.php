@@ -8,9 +8,12 @@
  * @license MIT License
  */
 
-namespace Redsys\ParameterBag;
+namespace Redsys\Transaction\Redirect;
 
-final class Response extends AbstractParameterBag implements ParameterBagInterface
+use Redsys\Transaction\AbstractParameterBag;
+use Redsys\Transaction\ParameterBagInterface;
+
+final class ParameterBag extends AbstractParameterBag implements ParameterBagInterface
 {
     const AMOUNT = "Ds_Amount";
     const AUTHORISATION_CODE = "Ds_AuthorisationCode";

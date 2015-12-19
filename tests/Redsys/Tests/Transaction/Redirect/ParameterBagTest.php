@@ -8,19 +8,21 @@
  * @license MIT License
  */
 
-namespace Redsys\Tests\ParameterBag;
+namespace Redsys\Tests\Transaction\Redirect;
 
-use Redsys\ParameterBag\Response;
+use Redsys\Transaction\Redirect\ParameterBag;
+use Redsys\Tests\Transaction\AbstractParameterBagTest;
+use Redsys\Transaction\ParameterBagInterface;
 
-class ResponseTest extends AbstractTest
+class ParameterBagTest extends AbstractParameterBagTest
 {
     /**
      * @param array $parameters
-     * @return Response
+     * @return ParameterBagInterface
      */
     protected function create($parameters = array())
     {
-        return new Response($parameters);
+        return new ParameterBag($parameters);
     }
 
     protected function getDefaultFieldsWithValues()

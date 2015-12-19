@@ -10,8 +10,8 @@
 
 namespace Redsys\Tests\Security\authentication;
 
-use Redsys\ParameterBag\Request;
 use Redsys\Security\Authentication\HmacSha256V1;
+use Redsys\Transaction\Redirect\Payment\ParameterBag;
 
 class HmacSha256V1Test extends \PHPUnit_Framework_TestCase
 {
@@ -40,7 +40,7 @@ class HmacSha256V1Test extends \PHPUnit_Framework_TestCase
     public function testHashShouldReturnString()
     {
         $authentication = new HmacSha256V1($this->secretKey());
-        $parameterBag = new Request($this->getParameters());
+        $parameterBag = new ParameterBag($this->getParameters());
 
         $this->assertEquals("92PEXmdhI3TXMAYDW/ZG1Q594NirKIWaUmWUO9DcC8U=", $authentication->hash($parameterBag));
     }

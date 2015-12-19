@@ -10,27 +10,24 @@
 
 namespace Redsys\Tests\Transaction\Redirect\Payment;
 
-use Redsys\Transaction\ParameterBagInterface;
+use Redsys\ParameterBag\ParameterBagInterface;
 use Redsys\Transaction\Redirect\Payment\ParameterBag;
-use Redsys\Transaction\Redirect\Payment\Transaction as Payment;
-use Redsys\Security\Authentication\AuthenticationInterface;
-use Redsys\Tests\Transaction\AbstractTransactionTest;
+use Redsys\Tests\Transaction\AbstractParameterBagTest;
 
-class TransactionTest extends AbstractTransactionTest
+class RequestTest extends AbstractParameterBagTest
 {
-    protected function createTransaction(AuthenticationInterface $authentication, ParameterBagInterface $parameterBag)
+    /**
+     * @param array $parameters
+     * @return ParameterBagInterface
+     */
+    protected function create($parameters = array())
     {
-        return new Payment($authentication, $parameterBag);
+        return new ParameterBag($parameters);
     }
 
-    protected function expectedTransactionValue(ParameterBagInterface $parameterBag)
+    protected function getDefaultFieldsWithValues()
     {
-        return $parameterBag->encode();
-    }
-
-    protected function createParameterBag()
-    {
-        return new ParameterBag(array(
+        return array(
             "Ds_Merchant_Amount" => "10025",
             "Ds_Merchant_AuthorisationCode" => "123456",
             "Ds_Merchant_ChargeExpiryDate" => "2015-11-22",
@@ -50,6 +47,16 @@ class TransactionTest extends AbstractTransactionTest
             "Ds_Merchant_TransactionType" => "0",
             "Ds_Merchant_UrlOK" => "http://www.example.com/ok",
             "Ds_Merchant_UrlKO" => "http://www.example.com/ko",
-        ));
+        );
+    }
+
+    protected function getOrderFieldName()
+    {
+        return "Ds_Merchant_Order";
+    }
+
+    protected function getDefaultExpectedEncode()
+    {
+        return base64_encode(json_encode($this->getDefaultFieldsWithValues()));
     }
 }

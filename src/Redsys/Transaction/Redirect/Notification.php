@@ -10,7 +10,6 @@
 
 namespace Redsys\Transaction\Redirect;
 
-use Redsys\ParameterBag\Response;
 use Redsys\Security\Authentication\AuthenticationFactory;
 use Redsys\Security\Authentication\AuthenticationInterface;
 
@@ -68,11 +67,11 @@ class Notification
     }
 
     /**
-     * @return Response
+     * @return ParameterBag
      */
     public function getParameterBag()
     {
-        return Response::createFromEncoded($this->getValue(self::PARAMETERS, ""));
+        return ParameterBag::createFromEncoded($this->getValue(self::PARAMETERS, ""));
     }
 
     /**

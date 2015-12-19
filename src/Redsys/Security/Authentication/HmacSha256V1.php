@@ -9,7 +9,7 @@
 
 namespace Redsys\Security\Authentication;
 
-use Redsys\ParameterBag\ParameterBagInterface;
+use Redsys\Transaction\ParameterBagInterface;
 use Redsys\Security\Cryptography\Crypt3Des;
 
 class HmacSha256V1 implements AuthenticationInterface

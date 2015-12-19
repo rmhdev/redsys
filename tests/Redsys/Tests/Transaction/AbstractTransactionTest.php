@@ -10,7 +10,7 @@
 
 namespace Redsys\Tests\Transaction;
 
-use Redsys\ParameterBag\ParameterBagInterface;
+use Redsys\Transaction\ParameterBagInterface;
 use Redsys\Security\Authentication\AuthenticationInterface;
 use Redsys\Security\Authentication\HmacSha256V1;
 use Redsys\Transaction\TransactionInterface;

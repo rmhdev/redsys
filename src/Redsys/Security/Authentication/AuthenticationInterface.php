@@ -10,7 +10,7 @@
 
 namespace Redsys\Security\Authentication;
 
-use Redsys\ParameterBag\ParameterBagInterface;
+use Redsys\Transaction\ParameterBagInterface;
 
 interface AuthenticationInterface
 {

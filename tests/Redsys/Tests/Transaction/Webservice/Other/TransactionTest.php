@@ -10,7 +10,7 @@
 
 namespace Redsys\Tests\Payment\Webservice\Other;
 
-use Redsys\ParameterBag\Webservice\TypeRequest as ParameterBag;
+use Redsys\Transaction\Webservice\Other\ParameterBag;
 use Redsys\Transaction\Webservice\Other\Transaction as Payment;
 use Redsys\Security\Authentication\AuthenticationFactory;
 
