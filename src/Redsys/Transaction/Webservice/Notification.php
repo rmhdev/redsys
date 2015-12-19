@@ -10,8 +10,15 @@
 
 namespace Redsys\Transaction\Webservice;
 
+use Redsys\Security\Authentication\AuthenticationFactory;
+use Redsys\Security\Authentication\HmacSha256V1;
+
 class Notification
 {
+    const CODE = "CODIGO";
+    const OPERATION = "OPERACION";
+    const DEFAULT_AUTHENTICATION = HmacSha256V1::NAME;
+
     /**
      * @var string
      */
@@ -39,6 +46,42 @@ class Notification
 
     public function toArray()
     {
-        return array();
+        if (!$this->getResponse()) {
+            return array();
+        }
+        $simpleXml = simplexml_load_string($this->getResponse());
+        $result = array(
+            self::CODE => (string)$simpleXml->xpath(self::CODE)[0],
+            self::OPERATION => array()
+        );
+        $parameters = (array)$simpleXml->xpath(self::OPERATION)[0];
+        foreach ($parameters as $name => $value) {
+            $result[self::OPERATION][$name] = (string)$value;
+        }
+
+        return $result;
+    }
+
+    public function getAuthentication()
+    {
+        return AuthenticationFactory::create(self::DEFAULT_AUTHENTICATION, $this->key);
+    }
+
+    public function getParameterBag()
+    {
+        $raw = $this->toArray();
+        $parameters = array();
+        if (array_key_exists(self::OPERATION, $raw)) {
+            $parameters = $raw[self::OPERATION];
+        }
+
+        return new ParameterBag($parameters);
+    }
+
+    public function hasCorrectSignature()
+    {
+        $parameterBag = $this->getParameterBag();
+
+        return ($parameterBag->get($parameterBag::SIGNATURE) === $this->getAuthentication()->hash($parameterBag));
     }
 }
