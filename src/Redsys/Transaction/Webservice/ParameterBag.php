@@ -8,12 +8,12 @@
  * @license MIT License
  */
 
-namespace Redsys\ParameterBag\Webservice;
+namespace Redsys\Transaction\Webservice;
 
-use Redsys\ParameterBag\AbstractParameterBag;
-use Redsys\ParameterBag\ParameterBagInterface;
+use Redsys\Transaction\AbstractParameterBag;
+use Redsys\Transaction\ParameterBagInterface;
 
-final class Response extends AbstractParameterBag implements ParameterBagInterface
+final class ParameterBag extends AbstractParameterBag implements ParameterBagInterface
 {
     const CODE = "CODIGO";
     const AMOUNT = "Ds_Amount";

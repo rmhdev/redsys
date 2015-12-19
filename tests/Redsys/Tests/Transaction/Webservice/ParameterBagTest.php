@@ -8,20 +8,21 @@
  * @license MIT License
  */
 
-namespace Redsys\Tests\ParameterBag\Webservice;
+namespace Redsys\Tests\Transaction\Webservice;
 
-use Redsys\ParameterBag\Webservice\Response;
-use Redsys\Tests\ParameterBag\AbstractTest;
+use Redsys\Transaction\ParameterBagInterface;
+use Redsys\Transaction\Webservice\ParameterBag;
+use Redsys\Tests\Transaction\AbstractParameterBagTest;
 
-class ResponseTest extends AbstractTest
+class ParameterBagTest extends AbstractParameterBagTest
 {
     /**
      * @param array $parameters
-     * @return Response
+     * @return ParameterBagInterface
      */
     protected function create($parameters = array())
     {
-        return new Response($parameters);
+        return new ParameterBag($parameters);
     }
 
     protected function getDefaultFieldsWithValues()
