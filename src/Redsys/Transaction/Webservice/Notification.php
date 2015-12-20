@@ -84,4 +84,14 @@ class Notification
 
         return ($parameterBag->get($parameterBag::SIGNATURE) === $this->getAuthentication()->hash($parameterBag));
     }
+
+    /**
+     * @return string
+     */
+    public function getResponseCode()
+    {
+        $data = $this->toArray();
+
+        return array_key_exists(self::CODE, $data) ? $data[self::CODE] : "";
+    }
 }

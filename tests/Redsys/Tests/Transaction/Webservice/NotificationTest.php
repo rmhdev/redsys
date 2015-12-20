@@ -144,7 +144,7 @@ class NotificationTest extends \PHPUnit_Framework_TestCase
     private function getIncorrectSignatureXml()
     {
         $xml = "<RETORNOXML>";
-        $xml .= "<CODIGO>0</CODIGO>";
+        $xml .= "<CODIGO>101</CODIGO>";
         $xml .= "<OPERACION>";
         $xml .= "<Ds_Amount>145</Ds_Amount>";
         $xml .= "<Ds_Currency>978</Ds_Currency>";
@@ -164,5 +164,19 @@ class NotificationTest extends \PHPUnit_Framework_TestCase
         $xml .= "</RETORNOXML>";
 
         return $xml;
+    }
+
+    public function testGetResponseCodeOnEmptyResponseCodeShouldReturnEmpty()
+    {
+        $notification = new Notification($this->secretKey());
+
+        $this->assertEmpty($notification->getResponseCode());
+    }
+
+    public function testGetResponseCodeShouldReturnReceivedCode()
+    {
+        $notification = new Notification($this->secretKey(), $this->getIncorrectSignatureXml());
+
+        $this->assertEquals("101", $notification->getResponseCode());
     }
 }
