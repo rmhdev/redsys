@@ -28,7 +28,6 @@ class ParameterBagTest extends AbstractParameterBagTest
     protected function getDefaultFieldsWithValues()
     {
         return array(
-            "CODIGO" => "0",
             "Ds_Amount" => "10025",
             "Ds_AuthorisationCode" => "123456",
             "Ds_Language" => "001",

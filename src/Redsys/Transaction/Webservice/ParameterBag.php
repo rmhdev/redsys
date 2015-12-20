@@ -15,7 +15,6 @@ use Redsys\Transaction\ParameterBagInterface;
 
 final class ParameterBag extends AbstractParameterBag implements ParameterBagInterface
 {
-    const CODE = "CODIGO";
     const AMOUNT = "Ds_Amount";
     const AUTHORISATION_CODE = "Ds_AuthorisationCode";
     const LANGUAGE = "Ds_Language";
@@ -63,12 +62,7 @@ final class ParameterBag extends AbstractParameterBag implements ParameterBagInt
     public static function createFromEncoded($encoded)
     {
         $simpleXml = simplexml_load_string($encoded);
-        $result = array(
-            self::CODE => (string)$simpleXml->CODIGO[0]
-        );
-        foreach ($simpleXml->OPERACION as $name => $value) {
-            $result = array_merge($result, (array)$value);
-        }
+        $result = (array)$simpleXml->xpath(Notification::OPERATION)[0];
 
         return new self($result);
     }
@@ -79,7 +73,6 @@ final class ParameterBag extends AbstractParameterBag implements ParameterBagInt
     public static function defaultFields()
     {
         return array(
-            self::CODE,
             self::AMOUNT,
             self::AUTHORISATION_CODE,
             self::LANGUAGE,

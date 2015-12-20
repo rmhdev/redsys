@@ -24,9 +24,9 @@ abstract class AbstractNotification implements NotificationInterface
 
     /**
      * @param string $key
-     * @param array $response
+     * @param mixed $response
      */
-    public function __construct($key, $response = array())
+    public function __construct($key, $response = null)
     {
         $this->response = $response;
         $this->key = $key;
