@@ -14,8 +14,16 @@ use Http\Adapter\HttpAdapter;
 
 class LiveProvider
 {
+    const ENDPOINT_URL = "https://sis.redsys.es/sis/services/SerClsWSEntrada";
+
+    /**
+     * @var HttpAdapter
+     */
     private $adapter;
 
+    /**
+     * @param HttpAdapter $adapter
+     */
     public function __construct(HttpAdapter $adapter)
     {
         $this->adapter = $adapter;
@@ -27,5 +35,10 @@ class LiveProvider
     public function getAdapter()
     {
         return $this->adapter;
+    }
+
+    public function getUrl()
+    {
+        return self::ENDPOINT_URL;
     }
 }

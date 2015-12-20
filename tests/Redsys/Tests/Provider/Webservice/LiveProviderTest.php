@@ -13,19 +13,40 @@ namespace Redsys\Tests\Provider\Webservice;
 use GuzzleHttp\Client;
 use GuzzleHttp\Handler\CurlHandler;
 use Http\Adapter\Guzzle6HttpAdapter;
+use Http\Adapter\HttpAdapter;
 use Redsys\Provider\Webservice\LiveProvider as Provider;
 
 class LiveProvider extends \PHPUnit_Framework_TestCase
 {
     public function testGetAdapterShouldReturnHttpAdapter()
     {
-        $adapter = new Guzzle6HttpAdapter(
+        $adapter = $this->createAdapter();
+        $provider = $this->createProvider($adapter);
+
+        $this->assertEquals($adapter, $provider->getAdapter());
+    }
+
+    public function testGetUrlShouldReturnUrl()
+    {
+        $provider = $this->createProvider($this->createAdapter());
+
+        $this->assertEquals(
+            "https://sis.redsys.es/sis/services/SerClsWSEntrada",
+            $provider->getUrl()
+        );
+    }
+
+    protected function createAdapter()
+    {
+        return new Guzzle6HttpAdapter(
             new Client(array(
                 "handler" => new CurlHandler()
             ))
         );
-        $provider = new Provider($adapter);
+    }
 
-        $this->assertEquals($adapter, $provider->getAdapter());
+    protected function createProvider(HttpAdapter $adapter)
+    {
+        return new Provider($adapter);
     }
 }
