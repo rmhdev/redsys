@@ -10,33 +10,16 @@
 
 namespace Redsys\Provider\Webservice;
 
-use Http\Adapter\HttpAdapter;
+use Redsys\Provider\AbstractProvider;
+use Redsys\Provider\ProviderInterface;
 
-class LiveProvider
+class LiveProvider extends AbstractProvider implements ProviderInterface
 {
     const ENDPOINT_URL = "https://sis.redsys.es/sis/services/SerClsWSEntrada";
 
     /**
-     * @var HttpAdapter
+     * @inheritdoc
      */
-    private $adapter;
-
-    /**
-     * @param HttpAdapter $adapter
-     */
-    public function __construct(HttpAdapter $adapter)
-    {
-        $this->adapter = $adapter;
-    }
-
-    /**
-     * @return HttpAdapter
-     */
-    public function getAdapter()
-    {
-        return $this->adapter;
-    }
-
     public function getUrl()
     {
         return self::ENDPOINT_URL;
