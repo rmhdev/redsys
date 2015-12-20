@@ -36,6 +36,9 @@ abstract class AbstractParameterBag implements ParameterBagInterface
     {
         $processed = array();
         $custom = array();
+        if (!is_array($parameters)) {
+            $parameters = (array)$parameters;
+        }
         foreach ($parameters as $field => $value) {
             if ($this->isCustomField($field)) {
                 $custom[$field] = $value;

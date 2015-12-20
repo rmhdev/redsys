@@ -20,9 +20,9 @@ class Notification
     const SIGNATURE = "Ds_Signature";
 
     /**
-     * @var array
+     * @var mixed
      */
-    private $parameters;
+    private $response;
 
     /**
      * @var string
@@ -31,12 +31,17 @@ class Notification
 
     /**
      * @param string $key
-     * @param array $parameters
+     * @param array $response
      */
-    public function __construct($key, $parameters = array())
+    public function __construct($key, $response = array())
     {
-        $this->parameters = is_array($parameters) ? $parameters : (array)$parameters;
+        $this->response = $response;
         $this->key = $key;
+    }
+
+    public function getResponse()
+    {
+        return $this->response;
     }
 
     /**
@@ -44,7 +49,11 @@ class Notification
      */
     public function toArray()
     {
-        return $this->parameters;
+        if (!$this->getResponse()) {
+            return array();
+        }
+
+        return is_array($this->getResponse()) ? $this->getResponse() : (array)$this->getResponse();
     }
 
     /**
@@ -54,16 +63,21 @@ class Notification
     {
         $version = $this->getValue(self::VERSION);
 
-        return AuthenticationFactory::create($version, $this->key);
+        return AuthenticationFactory::create($version, $this->getKey());
+    }
+
+    protected function getKey()
+    {
+        return $this->key;
     }
 
     private function getValue($name, $default = null)
     {
-        if (!array_key_exists($name, $this->parameters)) {
+        if (!array_key_exists($name, $this->toArray())) {
             return $default;
         }
 
-        return $this->parameters[$name];
+        return $this->toArray()[$name];
     }
 
     /**
@@ -80,5 +94,12 @@ class Notification
     public function hasCorrectSignature()
     {
         return $this->getValue(self::SIGNATURE, "") === $this->getAuthentication()->hash($this->getParameterBag());
+    }
+
+    public function getResponseCode()
+    {
+        $parameterBag = $this->getParameterBag();
+
+        return $parameterBag->get($parameterBag::RESPONSE);
     }
 }

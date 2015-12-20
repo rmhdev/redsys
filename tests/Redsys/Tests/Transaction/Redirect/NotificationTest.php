@@ -17,6 +17,24 @@ use Redsys\Security\Authentication\HmacSha256V1;
 
 class NotificationTest extends \PHPUnit_Framework_TestCase
 {
+    public function testGetResponseOnEmptyNotificationShouldReturnEmpty()
+    {
+        $notification = new Notification($this->secretKey());
+
+        $this->assertEmpty($notification->getResponse());
+    }
+
+    public function testGetResponseShouldReturnGivenResponse()
+    {
+        $response = array(
+            "Lorem_Ipsum" => "test",
+            "Custom_Value" => "1234"
+        );
+        $notification = new Notification($this->secretKey(), $response);
+
+        $this->assertEquals($response, $notification->getResponse());
+    }
+
     public function testToArrayOnEmptyNotificationShouldReturnEmptyArray()
     {
         $notification = new Notification($this->secretKey());
@@ -126,5 +144,26 @@ class NotificationTest extends \PHPUnit_Framework_TestCase
         $notification = new Notification($this->secretKey(), $notificationValues);
 
         $this->assertFalse($notification->hasCorrectSignature());
+    }
+
+    public function testGetResponseCodeOnEmptyResponseCodeShouldReturnEmpty()
+    {
+        $notification = new Notification($this->secretKey());
+
+        $this->assertEmpty($notification->getResponseCode());
+    }
+
+    public function testGetResponseCodeShouldReturnReceivedCode()
+    {
+        $authentication = $this->createAuthentication();
+        $parameterBag = new ParameterBag($this->getNotificationParameters());
+        $response = array(
+            "Ds_SignatureVersion" => $authentication->getName(),
+            "Ds_MerchantParameters" => $parameterBag->encode(),
+            "Ds_Signature" => "1234",
+        );
+        $notification = new Notification($this->secretKey(), $response);
+
+        $this->assertEquals("80", $notification->getResponseCode());
     }
 }
