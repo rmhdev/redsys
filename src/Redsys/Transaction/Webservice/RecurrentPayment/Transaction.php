@@ -13,6 +13,9 @@ namespace Redsys\Transaction\Webservice\RecurrentPayment;
 use Redsys\Transaction\AbstractTransaction;
 use Redsys\Transaction\TransactionInterface;
 
+/**
+ * @method ParameterBag getParameterBag()
+ */
 final class Transaction extends AbstractTransaction implements TransactionInterface
 {
     const PARAMETERS = "DatosEntrada";
