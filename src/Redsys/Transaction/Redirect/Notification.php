@@ -11,38 +11,14 @@
 namespace Redsys\Transaction\Redirect;
 
 use Redsys\Security\Authentication\AuthenticationFactory;
-use Redsys\Security\Authentication\AuthenticationInterface;
+use Redsys\Transaction\AbstractNotification;
+use Redsys\Transaction\NotificationInterface;
 
-class Notification
+final class Notification extends AbstractNotification implements NotificationInterface
 {
     const VERSION = "Ds_SignatureVersion";
     const PARAMETERS = "Ds_MerchantParameters";
     const SIGNATURE = "Ds_Signature";
-
-    /**
-     * @var mixed
-     */
-    private $response;
-
-    /**
-     * @var string
-     */
-    private $key;
-
-    /**
-     * @param string $key
-     * @param array $response
-     */
-    public function __construct($key, $response = array())
-    {
-        $this->response = $response;
-        $this->key = $key;
-    }
-
-    public function getResponse()
-    {
-        return $this->response;
-    }
 
     /**
      * @return array
@@ -57,18 +33,13 @@ class Notification
     }
 
     /**
-     * @return AuthenticationInterface
+     * @inheritdoc
      */
     public function getAuthentication()
     {
         $version = $this->getValue(self::VERSION);
 
         return AuthenticationFactory::create($version, $this->getKey());
-    }
-
-    protected function getKey()
-    {
-        return $this->key;
     }
 
     private function getValue($name, $default = null)
@@ -81,6 +52,7 @@ class Notification
     }
 
     /**
+     * @inheritdoc
      * @return ParameterBag
      */
     public function getParameterBag()
@@ -89,17 +61,20 @@ class Notification
     }
 
     /**
-     * @return bool
+     * @inheritdoc
      */
     public function hasCorrectSignature()
     {
         return $this->getValue(self::SIGNATURE, "") === $this->getAuthentication()->hash($this->getParameterBag());
     }
 
+    /**
+     * @inheritdoc
+     */
     public function getResponseCode()
     {
         $parameterBag = $this->getParameterBag();
 
-        return $parameterBag->get($parameterBag::RESPONSE);
+        return $parameterBag->get($parameterBag::RESPONSE, "");
     }
 }

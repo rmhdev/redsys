@@ -150,7 +150,7 @@ class NotificationTest extends \PHPUnit_Framework_TestCase
     {
         $notification = new Notification($this->secretKey());
 
-        $this->assertEmpty($notification->getResponseCode());
+        $this->assertEquals("", $notification->getResponseCode());
     }
 
     public function testGetResponseCodeShouldReturnReceivedCode()

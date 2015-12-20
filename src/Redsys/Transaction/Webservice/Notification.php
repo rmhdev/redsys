@@ -12,38 +12,18 @@ namespace Redsys\Transaction\Webservice;
 
 use Redsys\Security\Authentication\AuthenticationFactory;
 use Redsys\Security\Authentication\HmacSha256V1;
+use Redsys\Transaction\AbstractNotification;
+use Redsys\Transaction\NotificationInterface;
 
-class Notification
+final class Notification extends AbstractNotification implements NotificationInterface
 {
     const CODE = "CODIGO";
     const OPERATION = "OPERACION";
     const DEFAULT_AUTHENTICATION = HmacSha256V1::NAME;
 
     /**
-     * @var string
+     * @inheritdoc
      */
-    private $key;
-
-    /**
-     * @var string
-     */
-    private $response;
-
-    /**
-     * @param string $key
-     * @param string $response
-     */
-    public function __construct($key, $response = "")
-    {
-        $this->key = $key;
-        $this->response = $response;
-    }
-
-    public function getResponse()
-    {
-        return $this->response;
-    }
-
     public function toArray()
     {
         if (!$this->getResponse()) {
@@ -62,11 +42,18 @@ class Notification
         return $result;
     }
 
+    /**
+     * @inheritdoc
+     */
     public function getAuthentication()
     {
-        return AuthenticationFactory::create(self::DEFAULT_AUTHENTICATION, $this->key);
+        return AuthenticationFactory::create(self::DEFAULT_AUTHENTICATION, $this->getKey());
     }
 
+    /**
+     * @inheritdoc
+     * @return ParameterBag
+     */
     public function getParameterBag()
     {
         $raw = $this->toArray();
@@ -78,11 +65,14 @@ class Notification
         return new ParameterBag($parameters);
     }
 
+    /**
+     * @inheritdoc
+     */
     public function hasCorrectSignature()
     {
         $parameterBag = $this->getParameterBag();
 
-        return ($parameterBag->get($parameterBag::SIGNATURE) === $this->getAuthentication()->hash($parameterBag));
+        return ($parameterBag->get(ParameterBag::SIGNATURE) === $this->getAuthentication()->hash($parameterBag));
     }
 
     /**
