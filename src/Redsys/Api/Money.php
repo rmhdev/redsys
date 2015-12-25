@@ -28,8 +28,11 @@ final class Money
      */
     public function __construct($amount, Currency $currency)
     {
-        if (!is_numeric($amount) || $amount < 0) {
-            throw new \InvalidArgumentException(sprintf('Amount "%s" is not correct', $amount));
+        if (!is_numeric($amount)) {
+            throw new \InvalidArgumentException(sprintf('Amount "%s" is not numeric', $amount));
+        }
+        if ($amount < 0) {
+            throw new \InvalidArgumentException(sprintf('Amount "%s" can not be negative', $amount));
         }
         $this->amount = $amount;
         $this->currency = $currency;

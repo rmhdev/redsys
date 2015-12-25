@@ -52,7 +52,7 @@ class MoneyTest extends \PHPUnit_Framework_TestCase
      */
     public function testIncorrectAmountShouldThrowException($value)
     {
-        new Money($value, Currency::createEuro());
+        new Money($value, new Currency(840));
     }
 
     public function incorrectValues()
@@ -60,7 +60,6 @@ class MoneyTest extends \PHPUnit_Framework_TestCase
         return array(
             array(-1),
             array("test"),
-            array(0x01),
         );
     }
 }
