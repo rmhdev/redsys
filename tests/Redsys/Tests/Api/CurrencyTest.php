@@ -39,4 +39,12 @@ class CurrencyTest extends \PHPUnit_Framework_TestCase
             array(10000),
         );
     }
+
+    public function testCreateEuroShouldReturnCurrency()
+    {
+        $currency = Currency::createEuro();
+
+        $this->assertEquals(new Currency(978), $currency);
+
+    }
 }

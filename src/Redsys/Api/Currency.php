@@ -12,6 +12,8 @@ namespace Redsys\Api;
 
 final class Currency
 {
+    const EUR = 978;
+
     private $value;
 
     public function __construct($code)
@@ -33,5 +35,13 @@ final class Currency
     public function getValue()
     {
         return $this->value;
+    }
+
+    /**
+     * @return self
+     */
+    public static function createEuro()
+    {
+        return new self(self::EUR);
     }
 }
