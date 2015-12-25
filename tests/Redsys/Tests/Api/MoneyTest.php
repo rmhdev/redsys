@@ -10,21 +10,57 @@
 
 namespace Redsys\Tests\Api;
 
+use Redsys\Api\Currency;
 use Redsys\Api\Money;
 
 class MoneyTest extends \PHPUnit_Framework_TestCase
 {
     public function testGetAmountShouldReturnGivenNumber()
     {
-        $money = new Money(123, 978);
+        $money = new Money(123.45, Currency::createEuro());
 
-        $this->assertEquals(123, $money->getAmount());
+        $this->assertEquals(123.45, $money->getAmount());
     }
 
-    public function testGetCurrencyShouldReturnGivenNumber()
+    public function testGetCurrencyShouldReturnGivenCurrency()
     {
-        $money = new Money(123, 978);
+        $currency = Currency::createEuro();
+        $money = new Money(123, $currency);
 
-        $this->assertEquals(978, $money->getCurrency());
+        $this->assertEquals($currency, $money->getCurrency());
+    }
+
+    public function testToStringEurosShouldReturnSpeciallyFormattedAmount()
+    {
+        $currency = Currency::createEuro();
+        $money = new Money(123, $currency);
+
+        $this->assertEquals("12300", (string)$money);
+    }
+
+    public function testToStringNonEurosShouldReturnAmount()
+    {
+        $money = new Money(123, new Currency(840));
+
+        $this->assertEquals("123", (string)$money);
+    }
+
+    /**
+     * @expectedException \InvalidArgumentException
+     * @dataProvider incorrectValues()
+     * @param $value
+     */
+    public function testIncorrectAmountShouldThrowException($value)
+    {
+        new Money($value, Currency::createEuro());
+    }
+
+    public function incorrectValues()
+    {
+        return array(
+            array(-1),
+            array("test"),
+            array(0x01),
+        );
     }
 }

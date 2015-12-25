@@ -12,11 +12,25 @@ namespace Redsys\Api;
 
 final class Money
 {
+    /**
+     * @var number
+     */
     private $amount;
+
+    /**
+     * @var Currency
+     */
     private $currency;
 
-    public function __construct($amount, $currency)
+    /**
+     * @param $amount
+     * @param Currency $currency
+     */
+    public function __construct($amount, Currency $currency)
     {
+        if (!is_numeric($amount) || $amount < 0) {
+            throw new \InvalidArgumentException(sprintf('Amount "%s" is not correct', $amount));
+        }
         $this->amount = $amount;
         $this->currency = $currency;
     }
@@ -30,10 +44,22 @@ final class Money
     }
 
     /**
-     * @return int
+     * @return Currency
      */
     public function getCurrency()
     {
         return $this->currency;
+    }
+
+    /**
+     * @return string
+     */
+    public function __toString()
+    {
+        if (Currency::EUR === $this->getCurrency()->getValue()) {
+            return sprintf("%d", $this->amount * 100);
+        }
+
+        return (string)$this->getAmount();
     }
 }
