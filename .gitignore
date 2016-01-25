@@ -1,6 +1,2 @@
 composer.phar
 vendor/
-
-# other files:
-.idea
-.DS_Store
