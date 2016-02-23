@@ -39,6 +39,9 @@ final class ParameterBag extends AbstractParameterBag implements ParameterBagInt
         return $this->get(self::ORDER, "");
     }
 
+    /**
+     * @inheritdoc
+     */
     public function encode()
     {
         $writer = new \XMLWriter();

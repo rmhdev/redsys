@@ -51,6 +51,9 @@ final class ParameterBag extends AbstractParameterBag implements ParameterBagInt
         return $this->get(self::ORDER, "");
     }
 
+    /**
+     * @inheritdoc
+     */
     public function encode()
     {
         return base64_encode(json_encode($this->all()));
